@@ -1,0 +1,12 @@
+int attr border 0x7f010000
+int attr border_color 0x7f010002
+int attr border_width 0x7f010001
+int attr circularImageViewStyle 0x7f010004
+int attr shadow 0x7f010003
+int[] styleable CircularImageView { 0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003 }
+int styleable CircularImageView_border 0
+int styleable CircularImageView_border_color 2
+int styleable CircularImageView_border_width 1
+int styleable CircularImageView_shadow 3
+int[] styleable Theme { 0x7f010004 }
+int styleable Theme_circularImageViewStyle 0
