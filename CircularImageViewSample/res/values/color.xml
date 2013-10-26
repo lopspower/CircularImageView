@@ -1,0 +1,8 @@
+<resources>
+    <color name="Blue">#2980b9</color>
+    <color name="White">#ffffff</color>
+    <color name="Black">#000000</color>
+    <color name="Gray">#c9c9c9</color>
+    <color name="GrayLight">#eeeeee</color>
+    <color name="GrayHot">#272727</color>
+</resources>
