@@ -1,5 +1,4 @@
 CircularImageView
-CircularImageView
 =================
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
@@ -20,11 +19,12 @@ XML
 
 ```xml
 <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/imageViewCircular"
-        android:layout_width="@dimen/image_view_size"
-        android:layout_height="@dimen/image_view_size"
-        android:layout_gravity="center"
-        android:src="@drawable/image" />
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/image"
+        app:border_color="@color/GrayLight"
+        app:border_width="10"
+        app:shadow="true" />
 ```
 
 JAVA
