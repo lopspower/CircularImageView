@@ -12,6 +12,6 @@
         <attr name="circularImageViewStyle" format="reference"></attr>
     </declare-styleable>
 
-    <dimen name="default_border_width">4dp</dimen>
+    <dimen name="default_border_width">3dp</dimen>
 
 </resources>
