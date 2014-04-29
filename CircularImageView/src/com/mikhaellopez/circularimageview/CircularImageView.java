@@ -1,6 +1,7 @@
 package com.mikhaellopez.circularimageview;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -13,7 +14,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 
 public class CircularImageView extends ImageView {
-	private int borderWidth;
+	private float borderWidth;
 	private int canvasSize;
 	private Bitmap image;
 	private Paint paint;
@@ -39,17 +40,18 @@ public class CircularImageView extends ImageView {
 
 		// load the styled attributes and set their properties
 		TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyle, 0);
+		Resources res = context.getResources();
 
 		if(attributes.getBoolean(R.styleable.CircularImageView_border, true)) {
-			setBorderWidth(attributes.getColor(R.styleable.CircularImageView_border_width, 4));
-			setBorderColor(attributes.getInt(R.styleable.CircularImageView_border_color, Color.WHITE));
+			setBorderWidth(attributes.getDimension(R.styleable.CircularImageView_border_width, res.getDimension(R.dimen.default_border_width)));
+			setBorderColor(attributes.getColor(R.styleable.CircularImageView_border_color, Color.WHITE));
 		}
 
 		if(attributes.getBoolean(R.styleable.CircularImageView_shadow, false))
 			addShadow();
 	}
 
-	public void setBorderWidth(int borderWidth) {
+	public void setBorderWidth(float borderWidth) {
 		this.borderWidth = borderWidth;
 		this.requestLayout();
 		this.invalidate();
@@ -86,7 +88,7 @@ public class CircularImageView extends ImageView {
 			// circleCenter is the x or y of the view's center
 			// radius is the radius in pixels of the cirle to be drawn
 			// paint contains the shader that will texture the shape
-			int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
+			float circleCenter = (canvasSize - (borderWidth * 2)) / 2;
 			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
 			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
 		}
