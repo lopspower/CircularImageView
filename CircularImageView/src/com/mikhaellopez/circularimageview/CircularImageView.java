@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -70,9 +71,7 @@ public class CircularImageView extends ImageView {
 	@Override
 	public void onDraw(Canvas canvas) {
 		// load the bitmap
-		BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
-		if (bitmapDrawable != null)
-			image = bitmapDrawable.getBitmap();
+		image = drawableToBitmap(getDrawable());
 
 		// init shader
 		if (image != null) {
@@ -136,5 +135,21 @@ public class CircularImageView extends ImageView {
 		}
 
 		return (result + 2);
+	}
+
+	public Bitmap drawableToBitmap(Drawable drawable) {
+		if (drawable == null) {
+			return null;
+		} else if (drawable instanceof BitmapDrawable) {
+			return ((BitmapDrawable) drawable).getBitmap();
+		}
+
+		Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+				drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+		Canvas canvas = new Canvas(bitmap);
+		drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+		drawable.draw(canvas);
+
+		return bitmap;
 	}
 }
