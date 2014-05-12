@@ -11,7 +11,7 @@
         android:src="@drawable/image"
         app:border="true"
         app:border_color="@color/GrayLight"
-        app:border_width="10"
+        app:border_width="4dp"
         app:shadow="true" />
 
 </LinearLayout>
