@@ -55,3 +55,10 @@ LINK
 I realized this project using this post:
 * [Create circular image view in android](http://stackoverflow.com/a/16208548/1832221)
 * [How to add a shadow and a border on circular imageView android?](http://stackoverflow.com/q/17655264/1832221)
+
+
+LICENCE
+-----
+
+CircularImageView by [Lopez Mikhael](http://mikhaellopez.com/) is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+Based on a work at https://github.com/lopspower/CircularImageView.
