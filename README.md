@@ -23,7 +23,7 @@ XML
         android:layout_height="250dp"
         android:src="@drawable/image"
         app:border_color="#EEEEEE"
-        app:border_width="10"
+        app:border_width="4dp"
         app:shadow="true" />
 ```
 
@@ -32,10 +32,10 @@ You must use the following properties in your XML to change your CircularImageVi
 
 #####Properties:
 
-* `app:border`       (boolean) -> default true
-* `app:border_color` (color)   -> default WHITE
-* `app:border_width` (integer) -> default 4
-* `app:shadow`       (boolean) -> default false
+* `app:border`       (boolean)   -> default true
+* `app:border_color` (color)     -> default WHITE
+* `app:border_width` (dimension) -> default 4dp
+* `app:shadow`       (boolean)   -> default false
 
 JAVA
 -----
