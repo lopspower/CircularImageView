@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
@@ -76,19 +77,23 @@ public class CircularImageView extends ImageView {
 		// init shader
 		if (image != null) {
 
-			canvasSize = canvas.getWidth();
-			if(canvas.getHeight()<canvasSize)
-				canvasSize = canvas.getHeight();
-
-			BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvasSize, canvasSize, false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-			paint.setShader(shader);
-
-			// circleCenter is the x or y of the view's center
-			// radius is the radius in pixels of the cirle to be drawn
-			// paint contains the shader that will texture the shape
-			int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
-			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
-			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
+            int canvasSize = canvas.getWidth();
+            if(canvas.getHeight()<canvasSize){
+                canvasSize = canvas.getHeight();
+            }
+            BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
+                    ThumbnailUtils.extractThumbnail(image, canvasSize,
+                            canvasSize), canvasSize, canvasSize, false),
+                    Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            paint.setShader(shader);
+            //shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvas.getWidth(), canvas.getHeight(), false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+            paint.setShader(shader);
+            int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
+            // circleCenter is the x or y of the view's center
+            // radius is the radius in pixels of the cirle to be drawn
+            // paint contains the shader that will texture the shape
+            canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - 4.0f, paintBorder);
+            canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - 4.0f, paint);
 		}
 	}
 
