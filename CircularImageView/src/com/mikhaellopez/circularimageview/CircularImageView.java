@@ -70,26 +70,21 @@ public class CircularImageView extends ImageView {
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		// load the bitmap
-		image = drawableToBitmap(getDrawable());
+		canvasSize = canvas.getWidth();
+    		if(canvas.getHeight()<canvasSize)
+      			canvasSize = canvas.getHeight();
 
-		// init shader
-		if (image != null) {
+    		//draw border circle
+    		int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
+    		canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
 
-			canvasSize = canvas.getWidth();
-			if(canvas.getHeight()<canvasSize)
-				canvasSize = canvas.getHeight();
+    		//clip to inner circle
+    		Path circle = new Path();
+    		circle.addCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, Direction.CCW);
+    		canvas.clipPath(circle);
 
-			BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvasSize, canvasSize, false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-			paint.setShader(shader);
-
-			// circleCenter is the x or y of the view's center
-			// radius is the radius in pixels of the cirle to be drawn
-			// paint contains the shader that will texture the shape
-			int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
-			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
-			canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
-		}
+    		//have the imageview draw the given image (gives fine grained controls over scaling)
+    		super.onDraw(canvas);
 	}
 
 	@Override
