@@ -22,7 +22,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile project(':CircularImageView-Library')
-    //compile group: 'com.mikhaellopez.circularimageview', name: 'circularimageview', version: '1.0'
+    //compile 'com.mikhaellopez.circularimageview:circularimageview:2.0'
 }
 
 apply from: 'https://raw.githubusercontent.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
