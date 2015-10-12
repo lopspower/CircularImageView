@@ -19,4 +19,4 @@ android {
     }
 }
 
-apply from: 'https://raw.githubusercontent.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+apply from: 'maven-push.gradle'
