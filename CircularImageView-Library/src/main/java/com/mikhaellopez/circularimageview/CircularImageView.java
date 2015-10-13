@@ -97,41 +97,6 @@ public class CircularImageView extends ImageView {
     }
     //endregion
 
-
-    private void loadBitmap()
-    {
-        if (this.drawable == getDrawable())
-            return;
-
-        this.drawable = getDrawable();
-        this.image = drawableToBitmap(this.drawable);
-        updateShader();
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh)
-    {
-        super.onSizeChanged(w, h, oldw, oldh);
-        canvasSize = w;
-        if (h < canvasSize)
-            canvasSize = h;
-        if (image != null)
-        {
-            updateShader();
-        }
-    }
-
-    private void updateShader()
-    {
-        if (this.image == null)
-            return;
-        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
-                ThumbnailUtils.extractThumbnail(image, canvasSize,
-                        canvasSize), canvasSize, canvasSize, false),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint.setShader(shader);
-    }
-
     //region Draw Method
     @Override
     public void onDraw(Canvas canvas) {
@@ -153,7 +118,35 @@ public class CircularImageView extends ImageView {
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - 4.0f, paintBorder);
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - 4.0f, paint);
+    }
 
+    private void loadBitmap() {
+        if (this.drawable == getDrawable())
+            return;
+
+        this.drawable = getDrawable();
+        this.image = drawableToBitmap(this.drawable);
+        updateShader();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        canvasSize = w;
+        if (h < canvasSize)
+            canvasSize = h;
+        if (image != null)
+            updateShader();
+    }
+
+    private void updateShader() {
+        if (this.image == null)
+            return;
+        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
+                ThumbnailUtils.extractThumbnail(image, canvasSize,
+                        canvasSize), canvasSize, canvasSize, false),
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
@@ -230,6 +223,4 @@ public class CircularImageView extends ImageView {
         return (result + 2);
     }
     //endregion
-
-
 }
