@@ -88,7 +88,9 @@ public class CircularImageView extends ImageView {
     }
 
     public void addShadow() {
-        setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
+        }
         paintBorder.setShadowLayer(4.0f, 0.0f, 2.0f, Color.BLACK);
     }
     //endregion
