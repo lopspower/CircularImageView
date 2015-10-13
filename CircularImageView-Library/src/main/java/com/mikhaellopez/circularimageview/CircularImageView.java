@@ -27,6 +27,7 @@ public class CircularImageView extends ImageView {
 
     // Object used to draw
     private Bitmap image;
+    private Drawable drawable;
     private Paint paint;
     private Paint paintBorder;
 
@@ -96,11 +97,46 @@ public class CircularImageView extends ImageView {
     }
     //endregion
 
+
+    private void loadBitmap()
+    {
+        if (this.drawable == getDrawable())
+            return;
+
+        this.drawable = getDrawable();
+        this.image = drawableToBitmap(this.drawable);
+        updateShader();
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
+        super.onSizeChanged(w, h, oldw, oldh);
+        canvasSize = w;
+        if (h < canvasSize)
+            canvasSize = h;
+        if (image != null)
+        {
+            updateShader();
+        }
+    }
+
+    private void updateShader()
+    {
+        if (this.image == null)
+            return;
+        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
+                ThumbnailUtils.extractThumbnail(image, canvasSize,
+                        canvasSize), canvasSize, canvasSize, false),
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(shader);
+    }
+
     //region Draw Method
     @Override
     public void onDraw(Canvas canvas) {
         // Load the bitmap
-        image = drawableToBitmap(getDrawable());
+        loadBitmap();
 
         // Check if image isn't null
         if (image == null)
@@ -110,12 +146,6 @@ public class CircularImageView extends ImageView {
         if (canvas.getHeight() < canvasSize) {
             canvasSize = canvas.getHeight();
         }
-
-        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
-                ThumbnailUtils.extractThumbnail(image, canvasSize,
-                        canvasSize), canvasSize, canvasSize, false),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint.setShader(shader);
 
         // circleCenter is the x or y of the view's center
         // radius is the radius in pixels of the cirle to be drawn
