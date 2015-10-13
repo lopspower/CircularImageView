@@ -107,8 +107,9 @@ public class CircularImageView extends ImageView {
             return;
 
         canvasSize = canvas.getWidth();
-        if (canvas.getHeight() < canvasSize)
+        if (canvas.getHeight() < canvasSize) {
             canvasSize = canvas.getHeight();
+        }
 
         BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
                 ThumbnailUtils.extractThumbnail(image, canvasSize,
@@ -120,8 +121,9 @@ public class CircularImageView extends ImageView {
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) + borderWidth - 4.0f, paintBorder);
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, ((canvasSize - (borderWidth * 2)) / 2) - 4.0f, paint);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - 4.0f, paintBorder);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - 4.0f, paint);
+
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
