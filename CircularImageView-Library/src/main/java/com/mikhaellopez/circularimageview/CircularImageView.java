@@ -11,6 +11,7 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -109,7 +110,10 @@ public class CircularImageView extends ImageView {
         if (canvas.getHeight() < canvasSize)
             canvasSize = canvas.getHeight();
 
-        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(image, canvasSize, canvasSize, false), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
+                ThumbnailUtils.extractThumbnail(image, canvasSize,
+                        canvasSize), canvasSize, canvasSize, false),
+                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         paint.setShader(shader);
 
         // circleCenter is the x or y of the view's center
