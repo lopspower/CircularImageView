@@ -1,8 +1,0 @@
-<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:paddingTop="@dimen/toolbar_top_padding"
-    android:elevation="@dimen/elevation"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark" />
