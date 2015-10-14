@@ -37,7 +37,7 @@ install {
                 packaging 'aar'
 
                 // Add your description here
-                name 'circularimageview'
+                name 'com.mikhaellopez:circularimageview'
                 description = 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
                 url siteUrl
 
@@ -97,7 +97,7 @@ bintray {
     pkg {
         repo = "maven"
         // it is the name that appears in bintray when logged
-        name = "circularimageview"
+        name = "com.mikhaellopez:circularimageview"
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
