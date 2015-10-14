@@ -60,5 +60,5 @@ I realized this project using this post:
 LICENCE
 -----
 
-CircularImageView by [Lopez Mikhael](http://mikhaellopez.com/) is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+CircularImageView by [Lopez Mikhael](http://mikhaellopez.com/) is licensed under a [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 Based on a work at https://github.com/lopspower/CircularImageView.
