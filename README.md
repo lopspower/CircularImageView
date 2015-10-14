@@ -11,8 +11,11 @@ Image Result
 USAGE
 -----
 
-To make a circular ImageView add CircularImageView library in your project and add CircularImageView in your layout XML.
+To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
+```groovy
+compile 'com.mikhaellopez:circularimageview:2.0.1'
+```
 
 XML
 -----
