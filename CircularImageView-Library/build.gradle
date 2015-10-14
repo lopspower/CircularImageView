@@ -37,8 +37,8 @@ install {
                 packaging 'aar'
 
                 // Add your description here
-                name 'Android Update Checker'
-                description = 'The project aims to provide a reusable instrument to check asynchronously if exists any newer released update of your Android app on the Store.'
+                name 'CircularImageView'
+                description = 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
                 url siteUrl
 
                 // Set your license
