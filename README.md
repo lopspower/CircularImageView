@@ -1,6 +1,6 @@
 CircularImageView
 =================
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikhaellopez/circularimageview/badge.svg)](https://bintray.com/lopspower/maven/com.mikhaellopez%3Acircularimageview/view)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikhaellopez/circularimageview/badge.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularimageview|2.0.1|)
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
 
