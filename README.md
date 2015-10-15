@@ -1,5 +1,6 @@
 CircularImageView
 =================
+[![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.mikhaellopez/circularimageview/badge.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularimageview|2.0.1|)
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
