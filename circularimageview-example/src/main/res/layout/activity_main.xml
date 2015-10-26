@@ -19,7 +19,9 @@
             app:border="true"
             app:border_color="@color/colorAccent"
             app:border_width="4dp"
-            app:shadow="true" />
+            app:shadow="true"
+            app:shadow_radius="10"
+            app:shadow_color="@android:color/black"/>
 
     </LinearLayout>
 
