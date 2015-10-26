@@ -24,6 +24,8 @@ public class CircularImageView extends ImageView {
     // Properties
     private int borderWidth;
     private int canvasSize;
+    private float shadowRadius = 8.0f;
+    private int shadowColor = Color.BLACK;
 
     // Object used to draw
     private Bitmap image;
@@ -71,7 +73,7 @@ public class CircularImageView extends ImageView {
 
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_shadow, false)) {
-            addShadow();
+            drawShadow(attributes.getFloat(R.styleable.CircularImageView_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_shadow_color, shadowColor));
         }
     }
     //endregion
@@ -90,10 +92,18 @@ public class CircularImageView extends ImageView {
     }
 
     public void addShadow() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
-        }
-        paintBorder.setShadowLayer(4.0f, 0.0f, 2.0f, Color.BLACK);
+        drawShadow(shadowRadius, shadowColor);
+        this.invalidate();
+    }
+
+    public void setShadowRadius(float shadowRadius) {
+        drawShadow(shadowRadius, shadowColor);
+        this.invalidate();
+    }
+
+    public void setShadowColor(int shadowColor) {
+        drawShadow(shadowRadius, shadowColor);
+        this.invalidate();
     }
     //endregion
 
@@ -116,8 +126,8 @@ public class CircularImageView extends ImageView {
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - 4.0f, paintBorder);
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - 4.0f, paint);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius+shadowRadius/2), paintBorder);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius+shadowRadius/2), paint);
     }
 
     private void loadBitmap() {
@@ -139,12 +149,20 @@ public class CircularImageView extends ImageView {
             updateShader();
     }
 
+    private void drawShadow(float shadowRadius, int shadowColor) {
+        this.shadowRadius = shadowRadius;
+        this.shadowColor = shadowColor;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+            setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
+        }
+        paintBorder.setShadowLayer(shadowRadius, 0.0f, shadowRadius / 2, shadowColor);
+    }
+
     private void updateShader() {
         if (this.image == null)
             return;
         BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
-                ThumbnailUtils.extractThumbnail(image, canvasSize,
-                        canvasSize), canvasSize, canvasSize, false),
+                ThumbnailUtils.extractThumbnail(image, canvasSize, canvasSize), canvasSize, canvasSize, false),
                 Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         paint.setShader(shader);
     }
