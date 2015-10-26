@@ -16,7 +16,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-compile 'com.mikhaellopez:circularimageview:2.0.1'
+compile 'com.mikhaellopez:circularimageview:2.0.2'
 ```
 
 XML
@@ -29,7 +29,9 @@ XML
         android:src="@drawable/image"
         app:border_color="#EEEEEE"
         app:border_width="4dp"
-        app:shadow="true" />
+        app:shadow="true"
+        app:shadow_radius="10"
+        app:shadow_color="#8BC34A"/>
 ```
 
 You must use the following properties in your XML to change your CircularImageView.
@@ -37,19 +39,26 @@ You must use the following properties in your XML to change your CircularImageVi
 
 #####Properties:
 
-* `app:border`       (boolean)   -> default true
-* `app:border_color` (color)     -> default WHITE
-* `app:border_width` (dimension) -> default 4dp
-* `app:shadow`       (boolean)   -> default false
+* `app:border`          (boolean)   -> default true
+* `app:border_color`    (color)     -> default WHITE
+* `app:border_width`    (dimension) -> default 4dp
+* `app:shadow`          (boolean)   -> default false
+* `app:shadow_color`    (color)     -> default BLACK
+* `app:shadow_radius`   (float)     -> default 8.0f
 
 JAVA
 -----
 
 ```java
 CircularImageView circularImageView = (CircularImageView)findViewById(R.id.yourCircularImageView);
+// Set Border
 circularImageView.setBorderColor(getResources().getColor(R.color.GrayLight));
 circularImageView.setBorderWidth(10);
+// Add Shadow with default param
 circularImageView.addShadow();
+// or with custom param
+circularImageView.setShadowRadius(15);
+circularImageView.setShadowColor(Color.RED);
 ```
 
 LINK
