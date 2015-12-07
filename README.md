@@ -1,3 +1,5 @@
+![](http://i67.tinypic.com/2ij1d2r.jpg)
+
 CircularImageView
 =================
 
@@ -9,18 +11,13 @@ CircularImageView
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
 
-Image Result
------
-
-![Capture Project](http://i40.tinypic.com/10eiqfk.png)
-
 USAGE
 -----
 
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-compile 'com.mikhaellopez:circularimageview:2.0.2'
+compile 'com.mikhaellopez:circularimageview:2.1.0'
 ```
 
 XML
