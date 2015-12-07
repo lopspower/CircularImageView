@@ -1,5 +1,4 @@
 <h1 align="center">CircularImageView</h1>
-=================
 
 <p align="center">
   <a target="_blank" href="https://android-arsenal.com/details/1/2846"><img src="https://img.shields.io/badge/Android%20Arsenal-CircularImageView-brightgreen.svg?style=flat"></a>
