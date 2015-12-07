@@ -1,12 +1,11 @@
-<h1 align="center">CircularImageView</h1>
+CircularImageView
+=================
 
-<p align="center">
-  <a target="_blank" href="https://android-arsenal.com/details/1/2846"><img src="https://img.shields.io/badge/Android%20Arsenal-CircularImageView-brightgreen.svg?style=flat"></a>
-  <a target="_blank" href="http://developer.android.com/index.html"><img src="https://img.shields.io/badge/platform-android-green.svg"></a>
-  <a target="_blank" href="https://android-arsenal.com/api?level=11"><img src="https://img.shields.io/badge/API-11%2B-brightgreen.svg?style=flat"></a>
-  <a target="_blank" href="http://search.maven.org/#artifactdetails|com.mikhaellopez|circularimageview|2.0.2|"><img src="https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg"></a>
-  <a target="_blank" href="http://twitter.com/lopezmikhael"><img src="https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat"></a>
-</p>
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-CircularImageView-green.svg?style=flat)](https://android-arsenal.com/details/1/2846)
+[![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
+[![API](https://img.shields.io/badge/API-11%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=11)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg)](http://search.maven.org/#artifactdetails|com.mikhaellopez|circularimageview|2.0.2|)
+[![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
 
