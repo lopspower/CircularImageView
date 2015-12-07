@@ -2,26 +2,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/circularImageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/logo"
+        app:border="true"
+        app:border_color="#3f51b5"
+        app:border_width="8dp"
+        app:shadow="true"
+        app:shadow_color="#3f51b5"
+        app:shadow_radius="10" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
         android:gravity="center"
         android:orientation="vertical">
 
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/image"
-            app:border="true"
-            app:border_color="@color/colorAccent"
-            app:border_width="4dp"
-            app:shadow="true"
-            app:shadow_radius="10"
-            app:shadow_color="@android:color/black"/>
+        <SeekBar
+            android:id="@+id/seekBarBorderWidth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="30"
+            android:progress="11"
+            android:progressDrawable="@drawable/scrubber_progress" />
+
+        <SeekBar
+            android:id="@+id/seekBarShadowRadius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:max="30"
+            android:progress="8"
+            android:progressDrawable="@drawable/scrubber_progress" />
+
+        <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
+            android:id="@+id/shadeslider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
 
     </LinearLayout>
 
