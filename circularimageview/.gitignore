@@ -2,3 +2,4 @@
 /proguard-rules.pro
 /src/androidTest
 /src/test
+/*.iml

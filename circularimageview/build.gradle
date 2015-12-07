@@ -3,7 +3,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
 // This is the library version used when deploying the artifact
-version = "2.0.2"
+version = "2.1.0"
 
 android {
     compileSdkVersion 23
@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 23
-        versionCode 5
+        versionCode 6
         versionName version
     }
 
@@ -27,7 +27,6 @@ android {
 def siteUrl = 'https://github.com/lopspower/CircularImageView'      // Homepage URL of the library
 def gitUrl = 'https://github.com/lopspower/CircularImageView.git'   // Git repository URL
 group = "com.mikhaellopez"                                          // Maven Group ID for the artifact
-
 
 install {
     repositories.mavenInstaller {
@@ -107,12 +106,6 @@ bintray {
                 sign = true //Determines whether to GPG sign the files. The default is false
                 passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
             }
-//            mavenCentralSync {
-//                sync = true //Optional (true by default). Determines whether to sync the version to Maven Central.
-//                user = properties.getProperty("bintray.oss.user") //OSS user token
-//                password = properties.getProperty("bintray.oss.password") //OSS user password
-//                close = '1' //Optional property. By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-//            }
         }
     }
 }

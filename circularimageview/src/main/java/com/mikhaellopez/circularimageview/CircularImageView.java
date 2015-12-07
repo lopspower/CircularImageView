@@ -21,10 +21,13 @@ import android.widget.ImageView;
  * Created by Mikhael LOPEZ on 09/10/2015.
  */
 public class CircularImageView extends ImageView {
+    // Default Values
+    private static final float DEFAULT_SHADOW_RADIUS = 8.0f;
+
     // Properties
     private int borderWidth;
     private int canvasSize;
-    private float shadowRadius = 8.0f;
+    private float shadowRadius;
     private int shadowColor = Color.BLACK;
 
     // Object used to draw
@@ -73,6 +76,7 @@ public class CircularImageView extends ImageView {
 
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_shadow, false)) {
+            shadowRadius = DEFAULT_SHADOW_RADIUS;
             drawShadow(attributes.getFloat(R.styleable.CircularImageView_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_shadow_color, shadowColor));
         }
     }
@@ -81,29 +85,31 @@ public class CircularImageView extends ImageView {
     //region Set Attr Method
     public void setBorderWidth(int borderWidth) {
         this.borderWidth = borderWidth;
-        this.requestLayout();
-        this.invalidate();
+        requestLayout();
+        invalidate();
     }
 
     public void setBorderColor(int borderColor) {
         if (paintBorder != null)
             paintBorder.setColor(borderColor);
-        this.invalidate();
+        invalidate();
     }
 
     public void addShadow() {
+        if(shadowRadius == 0)
+            shadowRadius = DEFAULT_SHADOW_RADIUS;
         drawShadow(shadowRadius, shadowColor);
-        this.invalidate();
+        invalidate();
     }
 
     public void setShadowRadius(float shadowRadius) {
         drawShadow(shadowRadius, shadowColor);
-        this.invalidate();
+        invalidate();
     }
 
     public void setShadowColor(int shadowColor) {
         drawShadow(shadowRadius, shadowColor);
-        this.invalidate();
+        invalidate();
     }
     //endregion
 
