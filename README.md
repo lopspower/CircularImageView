@@ -1,4 +1,4 @@
-<p align="center"><a target="_blank" href="https://play.google.com/store/apps/details?id=com.mikhaellopez.circularimageviewsample" title="Download onGoogle Play Store"><img src="http://i67.tinypic.com/2ij1d2r.jpg"></a></p>
+<p align="center"><a target="_blank" href="https://play.google.com/store/apps/details?id=com.mikhaellopez.circularimageviewsample" title="Download on Google Play Store"><img src="http://i67.tinypic.com/2ij1d2r.jpg"></a></p>
 
 CircularImageView
 =================
