@@ -3,5 +3,9 @@
     <!-- APP DEFAULT -->
     <string name="app_name">CircularImageView</string>
 
+    <!-- OTHER -->
+    <string name="show_on_github">Show on GitHub</string>
+    <string name="pay_me_a_beer">Pay me a beer</string>
+    <string name="offer_me_a_beer">Offer me a beer if that application have helped you to reward me.</string>
 
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/github"
+        android:icon="@drawable/github"
+        android:title="@string/show_on_github"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/beer"
+        android:icon="@drawable/beer"
+        android:title="@string/pay_me_a_beer"
+        app:showAsAction="always" />
+
+</menu>

@@ -1,8 +1,14 @@
 package com.mikhaellopez.circularimageviewsample;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.SeekBar;
 
 import com.larswerkman.lobsterpicker.OnColorListener;
@@ -68,6 +74,38 @@ public class MainActivity extends AppCompatActivity {
             public void onColorSelected(@ColorInt int color) {
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.github:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/lopspower/CircularImageView")));
+                return true;
+            case R.id.beer:
+                new AlertDialog.Builder(this)
+                        .setTitle(getResources().getString(R.string.pay_me_a_beer))
+                        .setMessage(getResources().getString(R.string.offer_me_a_beer))
+                        .setPositiveButton(getResources().getString(android.R.string.ok).toUpperCase(), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/LopezMikhael")));
+                            }
+                        })
+                        .setNegativeButton(getResources().getString(android.R.string.cancel).toUpperCase(), null)
+                        .show();
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }
