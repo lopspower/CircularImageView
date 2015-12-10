@@ -96,7 +96,7 @@ public class CircularImageView extends ImageView {
     }
 
     public void addShadow() {
-        if(shadowRadius == 0)
+        if (shadowRadius == 0)
             shadowRadius = DEFAULT_SHADOW_RADIUS;
         drawShadow(shadowRadius, shadowColor);
         invalidate();
@@ -132,8 +132,8 @@ public class CircularImageView extends ImageView {
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
         int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius+shadowRadius/2), paintBorder);
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius+shadowRadius/2), paint);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paint);
     }
 
     private void loadBitmap() {
@@ -206,7 +206,8 @@ public class CircularImageView extends ImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
         int height = measureHeight(heightMeasureSpec);
-        setMeasuredDimension(width, height);
+        int imageSize = (width < height) ? width : height;
+        setMeasuredDimension(imageSize, imageSize);
     }
 
     private int measureWidth(int measureSpec) {
