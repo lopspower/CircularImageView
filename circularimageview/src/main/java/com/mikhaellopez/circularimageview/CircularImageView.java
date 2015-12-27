@@ -79,6 +79,9 @@ public class CircularImageView extends ImageView {
             shadowRadius = DEFAULT_SHADOW_RADIUS;
             drawShadow(attributes.getFloat(R.styleable.CircularImageView_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_shadow_color, shadowColor));
         }
+        
+        // Free the attribute object so it can be reused
+        attributes.recycle();
     }
     //endregion
 
