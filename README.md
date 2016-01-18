@@ -10,6 +10,8 @@ CircularImageView
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
 
+<img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="435" align="right" vspace="52" />
+
 USAGE
 -----
 
