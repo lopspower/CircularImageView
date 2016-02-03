@@ -20,8 +20,7 @@ android {
 }
 
 dependencies {
-    compile project(":circularimageview")
     compile 'com.android.support:appcompat-v7:23.1.1'
-    //compile 'com.mikhaellopez:circularimageview:2.1.1'
+    compile 'com.mikhaellopez:circularimageview:3.0.0'
     compile 'com.larswerkman:lobsterpicker:1.0.0'
 }
