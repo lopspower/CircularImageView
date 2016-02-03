@@ -1,18 +1,16 @@
 package com.mikhaellopez.circularimageview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.ThumbnailUtils;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
@@ -22,10 +20,11 @@ import android.widget.ImageView;
  */
 public class CircularImageView extends ImageView {
     // Default Values
+    private static final float DEFAULT_BORDER_WIDTH = 4;
     private static final float DEFAULT_SHADOW_RADIUS = 8.0f;
 
     // Properties
-    private int borderWidth;
+    private float borderWidth;
     private int canvasSize;
     private float shadowRadius;
     private int shadowColor = Color.BLACK;
@@ -42,17 +41,11 @@ public class CircularImageView extends ImageView {
     }
 
     public CircularImageView(Context context, AttributeSet attrs) {
-        this(context, attrs, R.attr.circularImageViewStyle);
+        this(context, attrs, 0);
     }
 
     public CircularImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public CircularImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context, attrs, defStyleAttr);
     }
 
@@ -64,26 +57,28 @@ public class CircularImageView extends ImageView {
         paintBorder = new Paint();
         paintBorder.setAntiAlias(true);
 
-        // Load the styled attributes and set their properties
-        TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyleAttr, 0);
+        if (!isInEditMode()) {
+            // Load the styled attributes and set their properties
+            TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyleAttr, 0);
 
-        // Init Border
-        if (attributes.getBoolean(R.styleable.CircularImageView_border, true)) {
-            int defaultBorderSize = (int) (4 * getContext().getResources().getDisplayMetrics().density + 0.5f);
-            setBorderWidth(attributes.getDimensionPixelOffset(R.styleable.CircularImageView_border_width, defaultBorderSize));
-            setBorderColor(attributes.getColor(R.styleable.CircularImageView_border_color, Color.WHITE));
-        }
+            // Init Border
+            if (attributes.getBoolean(R.styleable.CircularImageView_civ_border, true)) {
+                float defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().getResources().getDisplayMetrics().density;
+                setBorderWidth(attributes.getDimension(R.styleable.CircularImageView_civ_border_width, defaultBorderSize));
+                setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE));
+            }
 
-        // Init Shadow
-        if (attributes.getBoolean(R.styleable.CircularImageView_shadow, false)) {
-            shadowRadius = DEFAULT_SHADOW_RADIUS;
-            drawShadow(attributes.getFloat(R.styleable.CircularImageView_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_shadow_color, shadowColor));
+            // Init Shadow
+            if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
+                shadowRadius = DEFAULT_SHADOW_RADIUS;
+                drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor));
+            }
         }
     }
     //endregion
 
     //region Set Attr Method
-    public void setBorderWidth(int borderWidth) {
+    public void setBorderWidth(float borderWidth) {
         this.borderWidth = borderWidth;
         requestLayout();
         invalidate();
@@ -123,16 +118,20 @@ public class CircularImageView extends ImageView {
         if (image == null)
             return;
 
-        canvasSize = canvas.getWidth();
-        if (canvas.getHeight() < canvasSize) {
-            canvasSize = canvas.getHeight();
+        if (!isInEditMode()) {
+            canvasSize = canvas.getWidth();
+            if (canvas.getHeight() < canvasSize) {
+                canvasSize = canvas.getHeight();
+            }
         }
 
         // circleCenter is the x or y of the view's center
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
-        int circleCenter = (canvasSize - (borderWidth * 2)) / 2;
+        int circleCenter = (int) (canvasSize - (borderWidth * 2)) / 2;
+        // Draw Border
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        // Draw CircularImageView
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paint);
     }
 
@@ -165,12 +164,40 @@ public class CircularImageView extends ImageView {
     }
 
     private void updateShader() {
-        if (this.image == null)
+        if (image == null)
             return;
-        BitmapShader shader = new BitmapShader(Bitmap.createScaledBitmap(
-                ThumbnailUtils.extractThumbnail(image, canvasSize, canvasSize), canvasSize, canvasSize, false),
-                Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        // Crop Center Image
+        image = cropBitmap(image);
+
+        // Create Shader
+        BitmapShader shader = new BitmapShader(image, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+
+        // Center Image in Shader
+        Matrix matrix = new Matrix();
+        matrix.setScale((float) canvasSize / (float) image.getWidth(), (float) canvasSize / (float) image.getHeight());
+        shader.setLocalMatrix(matrix);
+
+        // Set Shader in Paint
         paint.setShader(shader);
+    }
+
+    private Bitmap cropBitmap(Bitmap bitmap) {
+        Bitmap bmp;
+        if (bitmap.getWidth() >= bitmap.getHeight()) {
+            bmp = Bitmap.createBitmap(
+                    bitmap,
+                    bitmap.getWidth() / 2 - bitmap.getHeight() / 2,
+                    0,
+                    bitmap.getHeight(), bitmap.getHeight());
+        } else {
+            bmp = Bitmap.createBitmap(
+                    bitmap,
+                    0,
+                    bitmap.getHeight() / 2 - bitmap.getWidth() / 2,
+                    bitmap.getWidth(), bitmap.getWidth());
+        }
+        return bmp;
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
