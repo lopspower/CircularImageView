@@ -10,8 +10,4 @@
         <attr name="civ_shadow_radius" format="float"/>
     </declare-styleable>
 
-    <declare-styleable name="Theme">
-        <attr name="circularImageViewStyle" format="reference"/>
-    </declare-styleable>
-
 </resources>
