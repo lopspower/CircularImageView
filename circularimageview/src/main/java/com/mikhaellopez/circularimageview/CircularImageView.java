@@ -19,6 +19,8 @@ import android.widget.ImageView;
  * Created by Mikhael LOPEZ on 09/10/2015.
  */
 public class CircularImageView extends ImageView {
+    private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
+
     // Default Values
     private static final float DEFAULT_BORDER_WIDTH = 4;
     private static final float DEFAULT_SHADOW_RADIUS = 8.0f;
@@ -103,6 +105,18 @@ public class CircularImageView extends ImageView {
     public void setShadowColor(int shadowColor) {
         drawShadow(shadowRadius, shadowColor);
         invalidate();
+    }
+
+    @Override
+    public ScaleType getScaleType() {
+        return SCALE_TYPE;
+    }
+
+    @Override
+    public void setScaleType(ScaleType scaleType) {
+        if (scaleType != SCALE_TYPE) {
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. So you don't need to use ScaleType.", scaleType));
+        }
     }
     //endregion
 
@@ -231,8 +245,9 @@ public class CircularImageView extends ImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
         int height = measureHeight(heightMeasureSpec);
-        int imageSize = (width < height) ? width : height;
-        setMeasuredDimension(imageSize, imageSize);
+        /*int imageSize = (width < height) ? width : height;
+        setMeasuredDimension(imageSize, imageSize);*/
+        setMeasuredDimension(width, height);
     }
 
     private int measureWidth(int measureSpec) {

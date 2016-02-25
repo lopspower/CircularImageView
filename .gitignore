@@ -3,4 +3,4 @@
 .DS_Store
 /build
 .gradle
-CircularImageView.iml
+*.iml

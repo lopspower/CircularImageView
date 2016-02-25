@@ -17,8 +17,8 @@
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/circularImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             android:src="@drawable/logo"
             app:civ_border="true"
             app:civ_border_color="#3f51b5"
