@@ -63,16 +63,16 @@ public class CircularImageView extends ImageView {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyleAttr, 0);
 
         // Init Border
-        if (attributes.getBoolean(R.styleable.CircularImageView_civ_border, true)) {
+        if (attributes.getBoolean(R.styleable.CircularImageView_lciv_border, true)) {
             float defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().getResources().getDisplayMetrics().density;
-            setBorderWidth(attributes.getDimension(R.styleable.CircularImageView_civ_border_width, defaultBorderSize));
-            setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE));
+            setBorderWidth(attributes.getDimension(R.styleable.CircularImageView_lciv_border_width, defaultBorderSize));
+            setBorderColor(attributes.getColor(R.styleable.CircularImageView_lciv_border_color, Color.WHITE));
         }
 
         // Init Shadow
-        if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
+        if (attributes.getBoolean(R.styleable.CircularImageView_lciv_shadow, false)) {
             shadowRadius = DEFAULT_SHADOW_RADIUS;
-            drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor));
+            drawShadow(attributes.getFloat(R.styleable.CircularImageView_lciv_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_lciv_shadow_color, shadowColor));
         }
     }
     //endregion
