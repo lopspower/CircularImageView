@@ -36,6 +36,8 @@ public class CircularImageView extends ImageView {
     private Drawable drawable;
     private Paint paint;
     private Paint paintBorder;
+    private int backgroundColor = -1;
+    private boolean hasBorder;
 
     //region Constructor & Init Method
     public CircularImageView(final Context context) {
@@ -63,11 +65,14 @@ public class CircularImageView extends ImageView {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyleAttr, 0);
 
         // Init Border
-        if (attributes.getBoolean(R.styleable.CircularImageView_civ_border, true)) {
+        hasBorder = attributes.getBoolean(R.styleable.CircularImageView_civ_border, true);
+        if (hasBorder) {
             float defaultBorderSize = DEFAULT_BORDER_WIDTH * getContext().getResources().getDisplayMetrics().density;
             setBorderWidth(attributes.getDimension(R.styleable.CircularImageView_civ_border_width, defaultBorderSize));
             setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE));
         }
+
+        backgroundColor = attributes.getColor(R.styleable.CircularImageView_civ_background, Color.WHITE);
 
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
@@ -142,7 +147,9 @@ public class CircularImageView extends ImageView {
         // paint contains the shader that will texture the shape
         int circleCenter = (int) (canvasSize - (borderWidth * 2)) / 2;
         // Draw Border
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        if (hasBorder) {
+            canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        }
         // Draw CircularImageView
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paint);
     }
@@ -228,8 +235,12 @@ public class CircularImageView extends ImageView {
         try {
             // Create Bitmap object out of the drawable
             Bitmap bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888);
+            // Draw background
+            bitmap.eraseColor(Color.WHITE);
+
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+
             drawable.draw(canvas);
             return bitmap;
         } catch (OutOfMemoryError e) {
