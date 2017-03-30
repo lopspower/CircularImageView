@@ -72,7 +72,7 @@ public class CircularImageView extends ImageView {
             setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE));
         }
 
-        backgroundColor = attributes.getColor(R.styleable.CircularImageView_civ_background, Color.WHITE);
+        backgroundColor = attributes.getColor(R.styleable.CircularImageView_civ_background_color, Color.WHITE);
 
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
@@ -85,6 +85,13 @@ public class CircularImageView extends ImageView {
     //region Set Attr Method
     public void setBorderWidth(float borderWidth) {
         this.borderWidth = borderWidth;
+        requestLayout();
+        invalidate();
+    }
+
+    //region Set Attr Method
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
         requestLayout();
         invalidate();
     }

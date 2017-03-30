@@ -41,12 +41,13 @@ You must use the following properties in your XML to change your CircularImageVi
 
 #####Properties:
 
-* `app:civ_border`          (boolean)   -> default true
-* `app:civ_border_color`    (color)     -> default WHITE
-* `app:civ_border_width`    (dimension) -> default 4dp
-* `app:civ_shadow`          (boolean)   -> default false
-* `app:civ_shadow_color`    (color)     -> default BLACK
-* `app:civ_shadow_radius`   (float)     -> default 8.0f
+* `app:civ_border`              (boolean)   -> default true
+* `app:civ_border_color`        (color)     -> default WHITE
+* `app:civ_border_width`        (dimension) -> default 4dp
+* `app:civ_shadow`              (boolean)   -> default false
+* `app:civ_shadow_color`        (color)     -> default BLACK
+* `app:civ_background_color`    (color)     -> default WHITE
+* `app:civ_shadow_radius`       (float)     -> default 8.0f
 
 JAVA
 -----
@@ -61,6 +62,7 @@ circularImageView.addShadow();
 // or with custom param
 circularImageView.setShadowRadius(15);
 circularImageView.setShadowColor(Color.RED);
+circularImageView.setBackgroundColor(Color.WHITE);
 ```
 
 LINK
