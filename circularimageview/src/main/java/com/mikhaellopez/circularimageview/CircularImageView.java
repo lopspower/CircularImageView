@@ -131,10 +131,7 @@ public class CircularImageView extends ImageView {
             return;
 
         if (!isInEditMode()) {
-            canvasSize = canvas.getWidth();
-            if (canvas.getHeight() < canvasSize) {
-                canvasSize = canvas.getHeight();
-            }
+            canvasSize = Math.min(canvas.getWidth(), canvas.getHeight());
         }
 
         // circleCenter is the x or y of the view's center
@@ -159,9 +156,7 @@ public class CircularImageView extends ImageView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        canvasSize = w;
-        if (h < canvasSize)
-            canvasSize = h;
+        canvasSize = Math.min(w, h);
         if (image != null)
             updateShader();
     }
@@ -245,7 +240,7 @@ public class CircularImageView extends ImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
         int height = measureHeight(heightMeasureSpec);
-        /*int imageSize = (width < height) ? width : height;
+        /*int imageSize = Math.min(width, height);
         setMeasuredDimension(imageSize, imageSize);*/
         setMeasuredDimension(width, height);
     }
