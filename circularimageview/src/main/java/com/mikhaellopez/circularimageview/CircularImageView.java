@@ -14,7 +14,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 
 /**
  * Copyright (C) 2018 Mikhael LOPEZ
@@ -282,22 +281,15 @@ public class CircularImageView extends AppCompatImageView {
             return ((BitmapDrawable) drawable).getBitmap();
         }
 
-        int intrinsicWidth = drawable.getIntrinsicWidth();
-        int intrinsicHeight = drawable.getIntrinsicHeight();
-
-        if (!(intrinsicWidth > 0 && intrinsicHeight > 0))
-            return null;
-
         try {
             // Create Bitmap object out of the drawable
-            Bitmap bitmap = Bitmap.createBitmap(intrinsicWidth, intrinsicHeight, Bitmap.Config.ARGB_8888);
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
             Canvas canvas = new Canvas(bitmap);
             drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
             drawable.draw(canvas);
             return bitmap;
-        } catch (OutOfMemoryError e) {
-            // Simply return null of failed bitmap creations
-            Log.e(getClass().toString(), "Encountered OutOfMemoryError while generating bitmap!");
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
