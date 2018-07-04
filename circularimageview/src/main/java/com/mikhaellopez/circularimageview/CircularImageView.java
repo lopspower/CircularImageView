@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
@@ -32,6 +33,7 @@ public class CircularImageView extends AppCompatImageView {
     private float shadowRadius;
     private int shadowColor = Color.BLACK;
     private ShadowGravity shadowGravity = ShadowGravity.BOTTOM;
+    private ColorFilter colorFilter;
 
     // Object used to draw
     private Bitmap image;
@@ -132,6 +134,15 @@ public class CircularImageView extends AppCompatImageView {
     }
 
     @Override
+    public void setColorFilter(ColorFilter colorFilter) {
+        if (this.colorFilter == colorFilter) {
+            return;
+        }
+        this.colorFilter = colorFilter;
+        invalidate();
+    }
+
+    @Override
     public ScaleType getScaleType() {
         return SCALE_TYPE;
     }
@@ -174,11 +185,11 @@ public class CircularImageView extends AppCompatImageView {
     }
 
     private void loadBitmap() {
-        if (this.drawable == getDrawable())
+        if (drawable == getDrawable())
             return;
 
-        this.drawable = getDrawable();
-        this.image = drawableToBitmap(this.drawable);
+        drawable = getDrawable();
+        image = drawableToBitmap(drawable);
         updateShader();
     }
 
@@ -241,6 +252,9 @@ public class CircularImageView extends AppCompatImageView {
 
         // Set Shader in Paint
         paint.setShader(shader);
+        if (colorFilter != null) {
+            paint.setColorFilter(colorFilter);
+        }
     }
 
     private Bitmap cropBitmap(Bitmap bitmap) {
