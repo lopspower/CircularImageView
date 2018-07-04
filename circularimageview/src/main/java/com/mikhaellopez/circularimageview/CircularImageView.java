@@ -238,15 +238,25 @@ public class CircularImageView extends AppCompatImageView {
         if (image == null)
             return;
 
-        // Crop Center Image
-        image = cropBitmap(image);
-
         // Create Shader
         BitmapShader shader = new BitmapShader(image, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
         // Center Image in Shader
+        float scale;
+        float dx = 0;
+        float dy = 0;
+
+        if (image.getWidth() * getHeight() > getWidth() * image.getHeight()) {
+            scale = getHeight() / (float) image.getHeight();
+            dx = (getWidth() - image.getWidth() * scale) * 0.5f;
+        } else {
+            scale = getWidth() / (float) image.getWidth();
+            dy = (getHeight() - image.getHeight() * scale) * 0.5f;
+        }
+
         Matrix matrix = new Matrix();
-        matrix.setScale((float) canvasSize / (float) image.getWidth(), (float) canvasSize / (float) image.getHeight());
+        matrix.setScale(scale, scale);
+        matrix.postTranslate(dx, dy);
         shader.setLocalMatrix(matrix);
 
         // Set Shader in Paint
@@ -254,24 +264,6 @@ public class CircularImageView extends AppCompatImageView {
         if (colorFilter != null) {
             paint.setColorFilter(colorFilter);
         }
-    }
-
-    private Bitmap cropBitmap(Bitmap bitmap) {
-        Bitmap bmp;
-        if (bitmap.getWidth() >= bitmap.getHeight()) {
-            bmp = Bitmap.createBitmap(
-                    bitmap,
-                    bitmap.getWidth() / 2 - bitmap.getHeight() / 2,
-                    0,
-                    bitmap.getHeight(), bitmap.getHeight());
-        } else {
-            bmp = Bitmap.createBitmap(
-                    bitmap,
-                    0,
-                    bitmap.getHeight() / 2 - bitmap.getWidth() / 2,
-                    bitmap.getWidth(), bitmap.getWidth());
-        }
-        return bmp;
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
