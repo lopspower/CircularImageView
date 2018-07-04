@@ -37,6 +37,7 @@ public class CircularImageView extends ImageView {
     private Drawable drawable;
     private Paint paint;
     private Paint paintBorder;
+    private Paint paintBackground;
 
     //region Constructor & Init Method
     public CircularImageView(final Context context) {
@@ -60,6 +61,9 @@ public class CircularImageView extends ImageView {
         paintBorder = new Paint();
         paintBorder.setAntiAlias(true);
 
+        paintBackground = new Paint();
+        paintBackground.setAntiAlias(true);
+
         // Load the styled attributes and set their properties
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyleAttr, 0);
 
@@ -70,11 +74,16 @@ public class CircularImageView extends ImageView {
             setBorderColor(attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE));
         }
 
+        setBackgroundColor(attributes.getColor(R.styleable.CircularImageView_civ_background_color, Color.WHITE));
+
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
             shadowRadius = DEFAULT_SHADOW_RADIUS;
-            drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius), attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor));
+            drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius), attributes.getColor(R.styleable
+                    .CircularImageView_civ_shadow_color, shadowColor));
         }
+
+        attributes.recycle();
     }
     //endregion
 
@@ -88,6 +97,12 @@ public class CircularImageView extends ImageView {
     public void setBorderColor(int borderColor) {
         if (paintBorder != null)
             paintBorder.setColor(borderColor);
+        invalidate();
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        if (paintBackground != null)
+            paintBackground.setColor(backgroundColor);
         invalidate();
     }
 
@@ -116,7 +131,8 @@ public class CircularImageView extends ImageView {
     @Override
     public void setScaleType(ScaleType scaleType) {
         if (scaleType != SCALE_TYPE) {
-            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. So you don't need to use ScaleType.", scaleType));
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. So you don't " +
+                    "need to use ScaleType.", scaleType));
         }
     }
     //endregion
@@ -142,8 +158,12 @@ public class CircularImageView extends ImageView {
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
         int circleCenter = (int) (canvasSize - (borderWidth * 2)) / 2;
+
         // Draw Border
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth,
+                circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        // Draw Circle background
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paintBackground);
         // Draw CircularImageView
         canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paint);
     }
