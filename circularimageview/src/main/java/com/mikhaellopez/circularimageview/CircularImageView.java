@@ -16,7 +16,8 @@ import android.util.Log;
 import android.widget.ImageView;
 
 /**
- * Created by Mikhael LOPEZ on 09/10/2015.
+ * Copyright (C) 2018 Mikhael LOPEZ
+ * Licensed under the Apache License Version 2.0
  */
 public class CircularImageView extends ImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
@@ -169,9 +170,7 @@ public class CircularImageView extends ImageView {
     private void drawShadow(float shadowRadius, int shadowColor) {
         this.shadowRadius = shadowRadius;
         this.shadowColor = shadowColor;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
-        }
+        setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
         paintBorder.setShadowLayer(shadowRadius, 0.0f, shadowRadius / 2, shadowColor);
     }
 

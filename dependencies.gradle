@@ -1,0 +1,26 @@
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+ext {
+    // APP VERSION
+    androidVersionCode          = 10
+    androidVersionName          = "3.0.2"
+
+    // ANDROID VERSION
+    androidCompileSdkVersion    = 27
+    androidMinSdkVersion        = 14
+    androidTargetSdkVersion     = 27
+
+    // ANDROID LIB
+    supportLibVersion           = '27.1.1'
+    appCompat                   = "com.android.support:appcompat-v7:$supportLibVersion"
+
+    // UI
+    lobsterPickerVersion        = '1.0.1'
+    lobsterPicker               = "com.larswerkman:lobsterpicker:$lobsterPickerVersion"
+
+}

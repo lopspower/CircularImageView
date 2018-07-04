@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        circularImageView = (CircularImageView) findViewById(R.id.circularImageView);
+        circularImageView = findViewById(R.id.circularImageView);
 
         // BORDER
         ((SeekBar) findViewById(R.id.seekBarBorderWidth)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

@@ -1,21 +1,15 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-
-// This is the library version used when deploying the artifact
-version = "3.0.2"
+apply plugin: 'maven-publish'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
+    compileSdkVersion androidCompileSdkVersion
     defaultConfig {
-        minSdkVersion 11
-        targetSdkVersion 23
-        versionCode 10
-        versionName version
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode androidVersionCode
+        versionName androidVersionName
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -24,88 +18,44 @@ android {
     }
 }
 
-def siteUrl = 'https://github.com/lopspower/CircularImageView'      // Homepage URL of the library
-def gitUrl = 'https://github.com/lopspower/CircularImageView.git'   // Git repository URL
-group = "com.mikhaellopez"                                          // Maven Group ID for the artifact
+//region PUBLISH TO JCENTER & MAVEN CENTRAL
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
 
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-
-                // Add your description here
-                name 'com.mikhaellopez:circularimageview'
-                description = 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
-                url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name 'The Apache Software License, Version 2.0'
-                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                developers {
-                    developer {
-                        id 'lopspower'
-                        name 'Mikhael Lopez'
-                        email 'lopez.mikhael@gmail.com'
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
+// Create the publication with the pom configuration:
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            groupId 'com.mikhaellopez'
+            artifactId 'circularimageview'
+            version androidVersionName
+            artifact(sourceJar)
+            artifact("$buildDir/outputs/aar/circularimageview-release.aar")
         }
     }
 }
 
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
-
+// Bintray config
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-// https://github.com/bintray/gradle-bintray-plugin
 bintray {
     user = properties.getProperty("bintray.user")
     key = properties.getProperty("bintray.apikey")
-
-    configurations = ['archives']
+    publications = ['MyPublication']
     pkg {
         repo = "maven"
-        // it is the name that appears in bintray when logged
         name = "com.mikhaellopez:circularimageview"
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = ["Apache-2.0"]
-        publish = true
+        desc = 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/lopspower/CircularImageView.git'
         version {
-            gpg {
-                sign = true //Determines whether to GPG sign the files. The default is false
-                passphrase = properties.getProperty("bintray.gpg.password") //Optional. The passphrase for GPG signing'
-            }
+            name = androidVersionName
+            vcsTag = androidVersionName
+            released = new Date()
         }
     }
 }
+//endregion
