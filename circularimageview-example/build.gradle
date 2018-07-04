@@ -18,8 +18,8 @@ android {
 }
 
 dependencies {
-    implementation project(':circularimageview')
-    //implementation "com.mikhaellopez:circularimageview:$androidVersionName"
+    //implementation project(':circularimageview')
+    implementation "com.mikhaellopez:circularimageview:$androidVersionName"
     implementation appCompat
     implementation lobsterPicker
 }
