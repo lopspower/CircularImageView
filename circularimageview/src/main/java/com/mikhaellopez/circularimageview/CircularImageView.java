@@ -31,6 +31,7 @@ public class CircularImageView extends AppCompatImageView {
     private int canvasSize;
     private float shadowRadius;
     private int shadowColor = Color.BLACK;
+    private ShadowGravity shadowGravity = ShadowGravity.BOTTOM;
 
     // Object used to draw
     private Bitmap image;
@@ -79,8 +80,10 @@ public class CircularImageView extends AppCompatImageView {
         // Init Shadow
         if (attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, false)) {
             shadowRadius = DEFAULT_SHADOW_RADIUS;
-            drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius), attributes.getColor(R.styleable
-                    .CircularImageView_civ_shadow_color, shadowColor));
+            drawShadow(attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, shadowRadius),
+                    attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor));
+            int shadowGravityIntValue = attributes.getInteger(R.styleable.CircularImageView_civ_shadow_gravity, ShadowGravity.BOTTOM.getValue());
+            shadowGravity = ShadowGravity.fromValue(shadowGravityIntValue);
         }
 
         attributes.recycle();
@@ -123,6 +126,11 @@ public class CircularImageView extends AppCompatImageView {
         invalidate();
     }
 
+    public void setShadowGravity(ShadowGravity shadowGravity) {
+        this.shadowGravity = shadowGravity;
+        invalidate();
+    }
+
     @Override
     public ScaleType getScaleType() {
         return SCALE_TYPE;
@@ -155,14 +163,14 @@ public class CircularImageView extends AppCompatImageView {
         // radius is the radius in pixels of the cirle to be drawn
         // paint contains the shader that will texture the shape
         int circleCenter = (int) (canvasSize - (borderWidth * 2)) / 2;
+        float margeWithShadowRadius = shadowRadius * 2;
 
         // Draw Border
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth,
-                circleCenter + borderWidth - (shadowRadius + shadowRadius / 2), paintBorder);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter + borderWidth - margeWithShadowRadius, paintBorder);
         // Draw Circle background
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paintBackground);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - margeWithShadowRadius, paintBackground);
         // Draw CircularImageView
-        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - (shadowRadius + shadowRadius / 2), paint);
+        canvas.drawCircle(circleCenter + borderWidth, circleCenter + borderWidth, circleCenter - margeWithShadowRadius, paint);
     }
 
     private void loadBitmap() {
@@ -186,7 +194,34 @@ public class CircularImageView extends AppCompatImageView {
         this.shadowRadius = shadowRadius;
         this.shadowColor = shadowColor;
         setLayerType(LAYER_TYPE_SOFTWARE, paintBorder);
-        paintBorder.setShadowLayer(shadowRadius, 0.0f, shadowRadius / 2, shadowColor);
+
+        float dx = 0.0f;
+        float dy = 0.0f;
+
+        switch (shadowGravity) {
+            case CENTER:
+                dx = 0.0f;
+                dy = 0.0f;
+                break;
+            case TOP:
+                dx = 0.0f;
+                dy = -shadowRadius / 2;
+                break;
+            case BOTTOM:
+                dx = 0.0f;
+                dy = shadowRadius / 2;
+                break;
+            case START:
+                dx = -shadowRadius / 2;
+                dy = 0.0f;
+                break;
+            case END:
+                dx = shadowRadius / 2;
+                dy = 0.0f;
+                break;
+        }
+
+        paintBorder.setShadowLayer(shadowRadius, dx, dy, shadowColor);
     }
 
     private void updateShader() {
@@ -300,4 +335,45 @@ public class CircularImageView extends AppCompatImageView {
         return (result + 2);
     }
     //endregion
+
+    public enum ShadowGravity {
+        CENTER,
+        TOP,
+        BOTTOM,
+        START,
+        END;
+
+        public int getValue() {
+            switch (this) {
+                case CENTER:
+                    return 1;
+                case TOP:
+                    return 2;
+                case BOTTOM:
+                    return 3;
+                case START:
+                    return 4;
+                case END:
+                    return 5;
+            }
+            throw new IllegalArgumentException("Not value available for this ShadowGravity: " + this);
+        }
+
+        public static ShadowGravity fromValue(int value) {
+            switch (value) {
+                case 1:
+                    return CENTER;
+                case 2:
+                    return TOP;
+                case 3:
+                    return BOTTOM;
+                case 4:
+                    return START;
+                case 5:
+                    return END;
+            }
+            throw new IllegalArgumentException("This value is not supported for ShadowGravity: " + value);
+        }
+
+    }
 }
