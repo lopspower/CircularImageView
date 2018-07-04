@@ -11,15 +11,15 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.widget.ImageView;
 
 /**
  * Copyright (C) 2018 Mikhael LOPEZ
  * Licensed under the Apache License Version 2.0
  */
-public class CircularImageView extends ImageView {
+public class CircularImageView extends AppCompatImageView {
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
     // Default Values
@@ -131,8 +131,8 @@ public class CircularImageView extends ImageView {
     @Override
     public void setScaleType(ScaleType scaleType) {
         if (scaleType != SCALE_TYPE) {
-            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. So you don't " +
-                    "need to use ScaleType.", scaleType));
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. " +
+                    "So you don't need to use ScaleType.", scaleType));
         }
     }
     //endregion
@@ -259,8 +259,6 @@ public class CircularImageView extends ImageView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
         int height = measureHeight(heightMeasureSpec);
-        /*int imageSize = Math.min(width, height);
-        setMeasuredDimension(imageSize, imageSize);*/
         setMeasuredDimension(width, height);
     }
 

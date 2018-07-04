@@ -18,6 +18,10 @@ android {
     }
 }
 
+dependencies {
+    implementation appCompat
+}
+
 //region PUBLISH TO JCENTER & MAVEN CENTRAL
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
