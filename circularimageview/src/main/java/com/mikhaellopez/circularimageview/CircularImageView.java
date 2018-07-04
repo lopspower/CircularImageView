@@ -20,7 +20,7 @@ import android.widget.ImageView;
  * Licensed under the Apache License Version 2.0
  */
 public class CircularImageView extends ImageView {
-    private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
+    private static final ScaleType SCALE_TYPE = ScaleType.FIT_XY;
 
     // Default Values
     private static final float DEFAULT_BORDER_WIDTH = 4;
