@@ -65,6 +65,12 @@ circularImageView.setShadowColor(Color.RED);
 circularImageView.setBackgroundColor(Color.RED);
 ```
 
+LIMITATIONS
+-----
+
+* The ScaleType is always CENTER_CROP and you'll get an exception if you try to change it.
+* Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
+
 LINK
 -----
 
