@@ -30,7 +30,7 @@ def libDesc = 'This is an Android project allowing to realize a circular ImageVi
 def libLicenses = ['Apache-2.0']
 def libVCSUrl = 'https://github.com/lopspower/CircularImageView.git'
 
-// Generate Soucre Jar
+// Generate Source Jar
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier "sources"
