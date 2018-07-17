@@ -15,12 +15,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
+import static android.widget.ImageView.ScaleType.CENTER_CROP;
+import static android.widget.ImageView.ScaleType.CENTER_INSIDE;
+
 /**
  * Copyright (C) 2018 Mikhael LOPEZ
  * Licensed under the Apache License Version 2.0
  */
 public class CircularImageView extends AppCompatImageView {
-    private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
     // Default Values
     private static final float DEFAULT_BORDER_WIDTH = 4;
@@ -143,14 +145,17 @@ public class CircularImageView extends AppCompatImageView {
 
     @Override
     public ScaleType getScaleType() {
-        return SCALE_TYPE;
+        ScaleType currentScaleType = super.getScaleType();
+        return currentScaleType == null || currentScaleType != CENTER_INSIDE ? CENTER_CROP : currentScaleType;
     }
 
     @Override
     public void setScaleType(ScaleType scaleType) {
-        if (scaleType != SCALE_TYPE) {
-            throw new IllegalArgumentException(String.format("ScaleType %s not supported. ScaleType.CENTER_CROP is used by default. " +
-                    "So you don't need to use ScaleType.", scaleType));
+        if (scaleType != CENTER_CROP && scaleType != CENTER_INSIDE) {
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported. " +
+                    "Just ScaleType.CENTER_CROP & ScaleType.CENTER_INSIDE are available for this library.", scaleType));
+        } else {
+            super.setScaleType(scaleType);
         }
     }
     //endregion
@@ -242,16 +247,29 @@ public class CircularImageView extends AppCompatImageView {
         BitmapShader shader = new BitmapShader(image, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
 
         // Center Image in Shader
-        float scale;
+        float scale = 0;
         float dx = 0;
         float dy = 0;
 
-        if (image.getWidth() * getHeight() > getWidth() * image.getHeight()) {
-            scale = getHeight() / (float) image.getHeight();
-            dx = (getWidth() - image.getWidth() * scale) * 0.5f;
-        } else {
-            scale = getWidth() / (float) image.getWidth();
-            dy = (getHeight() - image.getHeight() * scale) * 0.5f;
+        switch (getScaleType()) {
+            case CENTER_CROP:
+                if (image.getWidth() * getHeight() > getWidth() * image.getHeight()) {
+                    scale = getHeight() / (float) image.getHeight();
+                    dx = (getWidth() - image.getWidth() * scale) * 0.5f;
+                } else {
+                    scale = getWidth() / (float) image.getWidth();
+                    dy = (getHeight() - image.getHeight() * scale) * 0.5f;
+                }
+                break;
+            case CENTER_INSIDE:
+                if (image.getWidth() * getHeight() < getWidth() * image.getHeight()) {
+                    scale = getHeight() / (float) image.getHeight();
+                    dx = (getWidth() - image.getWidth() * scale) * 0.5f;
+                } else {
+                    scale = getWidth() / (float) image.getWidth();
+                    dy = (getHeight() - image.getHeight() * scale) * 0.5f;
+                }
+                break;
         }
 
         Matrix matrix = new Matrix();
