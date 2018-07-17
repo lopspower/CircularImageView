@@ -134,10 +134,10 @@ public class CircularImageView extends AppCompatImageView {
 
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
-        if (this.colorFilter == colorFilter) {
+        if (this.colorFilter == colorFilter)
             return;
-        }
         this.colorFilter = colorFilter;
+        drawable = null; // To force re-update shader
         invalidate();
     }
 
@@ -261,9 +261,9 @@ public class CircularImageView extends AppCompatImageView {
 
         // Set Shader in Paint
         paint.setShader(shader);
-        if (colorFilter != null) {
-            paint.setColorFilter(colorFilter);
-        }
+
+        // Apply colorFilter
+        paint.setColorFilter(colorFilter);
     }
 
     private Bitmap drawableToBitmap(Drawable drawable) {
@@ -287,7 +287,7 @@ public class CircularImageView extends AppCompatImageView {
     }
     //endregion
 
-    //region Mesure Method
+    //region Measure Method
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = measureWidth(widthMeasureSpec);
@@ -330,7 +330,7 @@ public class CircularImageView extends AppCompatImageView {
             result = canvasSize;
         }
 
-        return (result + 2);
+        return result + 2;
     }
     //endregion
 
