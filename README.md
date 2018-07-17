@@ -20,7 +20,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:3.1.1'
+implementation 'com.mikhaellopez:circularimageview:3.2.0'
 ```
 
 XML
@@ -72,7 +72,7 @@ circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 LIMITATIONS
 -----
 
-* The ScaleType is always CENTER_CROP and you'll get an exception if you try to change it.
+* By default the ScaleType is CENTER_CROP. You can also used CENTER_INSIDE but the others one are not supported.
 * Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
 
 LINK
