@@ -37,8 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:max="40"
-            android:progress="8"
-            android:progressDrawable="@drawable/scrubber_progress" />
+            android:progress="8" />
 
         <SeekBar
             android:id="@+id/seekBarShadowRadius"
@@ -46,8 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:max="40"
-            android:progress="8"
-            android:progressDrawable="@drawable/scrubber_progress" />
+            android:progress="8" />
 
         <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
             android:id="@+id/shadeSlider"
