@@ -24,8 +24,10 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:3.2.0'
+implementation 'com.mikhaellopez:circularimageview:4.0.0'
 ```
+
+:information_source: You can also use `android:elevation` instead of `app:cv_shadow` to have default Material Design elevation.
 
 XML
 -----
@@ -47,25 +49,45 @@ You must use the following properties in your XML to change your CircularImageVi
 
 ##### Properties:
 
+* `app:civ_circle_color`        (color)     -> default WHITE
 * `app:civ_border`              (boolean)   -> default true
 * `app:civ_border_color`        (color)     -> default WHITE
 * `app:civ_border_width`        (dimension) -> default 4dp
-* `app:civ_background_color`    (color) -> default WHITE
 * `app:civ_shadow`              (boolean)   -> default false
 * `app:civ_shadow_color`        (color)     -> default BLACK
 * `app:civ_shadow_radius`       (float)     -> default 8.0f
 * `app:civ_shadow_gravity`      (center, top, bottom, start or end) -> default bottom
 
+KOTLIN
+-----
+
+```kotlin
+val circularImageView = findViewById<CircularImageView>(R.id.circularImageView)
+// Set Circle color for transparent image
+circularImageView.circleColor = Color.WHITE
+// Set Border
+circularImageView.borderColor = Color.BLACK
+circularImageView.borderWidth = 10f
+// Add Shadow with default param
+circularImageView.shadowEnable = true
+// or with custom param
+circularImageView.shadowRadius = 15f
+circularImageView.shadowColor = Color.RED
+circularImageView.shadowGravity = CircularImageView.ShadowGravity.CENTER
+```
+
 JAVA
 -----
 
 ```java
-CircularImageView circularImageView = (CircularImageView)findViewById(R.id.yourCircularImageView);
+CircularImageView circularImageView = findViewById(R.id.circularImageView);
+// Set Circle color for transparent image
+circularImageView.setCircleColor(Color.WHITE);
 // Set Border
-circularImageView.setBorderColor(getResources().getColor(R.color.GrayLight));
+circularImageView.setBorderColor(Color.RED);
 circularImageView.setBorderWidth(10);
 // Add Shadow with default param
-circularImageView.addShadow();
+circularImageView.setShadowEnable(true);
 // or with custom param
 circularImageView.setShadowRadius(15);
 circularImageView.setShadowColor(Color.RED);
