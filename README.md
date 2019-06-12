@@ -66,7 +66,7 @@ val circularImageView = findViewById<CircularImageView>(R.id.circularImageView)
 // Set Circle color for transparent image
 circularImageView.circleColor = Color.WHITE
 // Set Border
-circularImageView.borderColor = Color.BLACK
+circularImageView.borderColor = Color.RED
 circularImageView.borderWidth = 10f
 // Add Shadow with default param
 circularImageView.shadowEnable = true
