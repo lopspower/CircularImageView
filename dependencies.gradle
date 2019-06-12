@@ -7,17 +7,20 @@ allprojects {
 
 ext {
     // APP VERSION
-    androidVersionCode          = 12
-    androidVersionName          = "3.2.0"
+    androidVersionCode          = 13
+    androidVersionName          = "4.0.0"
 
     // ANDROID VERSION
-    androidCompileSdkVersion    = 27
+    androidCompileSdkVersion    = 28
     androidMinSdkVersion        = 14
-    androidTargetSdkVersion     = 27
+    androidTargetSdkVersion     = 28
+
+    // KOTLIN
+    kotlinStdlib                = "org.jetbrains.kotlin:kotlin-stdlib:${ext.kotlin_version}"
 
     // ANDROID LIB
-    supportLibVersion           = '27.1.1'
-    appCompat                   = "com.android.support:appcompat-v7:$supportLibVersion"
+    androidAppCompatXVersion    = '1.0.2'
+    androidXAppCompat           = "androidx.appcompat:appcompat:$androidAppCompatXVersion"
 
     // UI
     lobsterPickerVersion        = '1.0.1'
