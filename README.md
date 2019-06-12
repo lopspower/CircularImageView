@@ -27,7 +27,7 @@ To make a circular ImageView add CircularImageView in your layout XML and add Ci
 implementation 'com.mikhaellopez:circularimageview:4.0.0'
 ```
 
-:information_source: You can also use `android:elevation` instead of `app:cv_shadow` to have default Material Design elevation.
+:information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
 
 XML
 -----
