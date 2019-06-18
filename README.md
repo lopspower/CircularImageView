@@ -27,8 +27,6 @@ To make a circular ImageView add CircularImageView in your layout XML and add Ci
 implementation 'com.mikhaellopez:circularimageview:4.0.0'
 ```
 
-:information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
-
 XML
 -----
 
@@ -57,6 +55,8 @@ You must use the following properties in your XML to change your CircularImageVi
 * `app:civ_shadow_color`        (color)     -> default BLACK
 * `app:civ_shadow_radius`       (float)     -> default 8.0f
 * `app:civ_shadow_gravity`      (center, top, bottom, start or end) -> default bottom
+
+:information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
 
 KOTLIN
 -----
