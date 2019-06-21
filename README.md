@@ -35,11 +35,11 @@ XML
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/image"
-        app:civ_border_color="#EEEEEE"
+        app:civ_border_color="#3f51b5"
         app:civ_border_width="4dp"
         app:civ_shadow="true"
         app:civ_shadow_radius="10"
-        app:civ_shadow_color="#8BC34A"/>
+        app:civ_shadow_color="#3f51b5"/>
 ```
 
 You must use the following properties in your XML to change your CircularImageView.
