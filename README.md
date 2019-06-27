@@ -95,6 +95,12 @@ circularImageView.setBackgroundColor(Color.RED);
 circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 ```
 
+:information_source:  If you want to used this library on a **Java Android project** you need to add `kotlin-stdlib` dependency:
+
+```groovy
+implementation "org.jetbrains.kotlin:kotlin-stdlib:$LAST_KOTLIN_VERSION"
+```
+
 LIMITATIONS
 -----
 
