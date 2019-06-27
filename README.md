@@ -24,7 +24,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:4.0.0'
+implementation 'com.mikhaellopez:circularimageview:4.0.1'
 ```
 
 XML
@@ -93,12 +93,6 @@ circularImageView.setShadowRadius(15);
 circularImageView.setShadowColor(Color.RED);
 circularImageView.setBackgroundColor(Color.RED);
 circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
-```
-
-:information_source:  If you want to used this library on a **Java Android project** you need to add `kotlin-stdlib` dependency:
-
-```groovy
-implementation "org.jetbrains.kotlin:kotlin-stdlib:$LAST_KOTLIN_VERSION"
 ```
 
 LIMITATIONS
