@@ -44,6 +44,16 @@ publishing {
             groupId libGroupId
             artifactId libArtifactId
             version libVersion
+
+            pom.withXml {
+                def dependenciesNode = asNode().appendNode('dependencies')
+                // Add KotlinStdlib
+                def kotlinStdlibDepNode = dependenciesNode.appendNode('dependency')
+                kotlinStdlibDepNode.appendNode('groupId', kotlinStdlibGroupId)
+                kotlinStdlibDepNode.appendNode('artifactId', kotlinStdlibArtifactId)
+                kotlinStdlibDepNode.appendNode('version', kotlinStdlibVersion)
+            }
+
             artifact(sourceJar)
             artifact("$buildDir/outputs/aar/$libArtifactId-release.aar")
         }
