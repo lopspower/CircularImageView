@@ -28,5 +28,4 @@ ext {
     // UI
     lobsterPickerVersion        = '1.0.1'
     lobsterPicker               = "com.larswerkman:lobsterpicker:$lobsterPickerVersion"
-
 }
