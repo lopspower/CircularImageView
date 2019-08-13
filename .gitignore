@@ -1,7 +1,13 @@
-*.iml
-/.gradle
-/local.properties
-/.idea
+# GENERATED
+*build
+buildsystem
+.gradle
 .DS_Store
-/build
-/gradle.properties
+
+# LOCAL
+local.properties
+gradle.properties
+
+# IDEA
+*.idea
+*.iml
