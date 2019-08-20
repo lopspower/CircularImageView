@@ -11,6 +11,7 @@ import android.view.ViewOutlineProvider
 import android.widget.ImageView.ScaleType.CENTER_CROP
 import android.widget.ImageView.ScaleType.CENTER_INSIDE
 import androidx.appcompat.widget.AppCompatImageView
+import kotlin.math.min
 
 /**
  * Copyright (C) 2019 Mikhael LOPEZ
@@ -109,8 +110,7 @@ class CircularImageView @JvmOverloads constructor(context: Context, attrs: Attri
         // Init Shadow
         shadowEnable = attributes.getBoolean(R.styleable.CircularImageView_civ_shadow, shadowEnable)
         if (shadowEnable) {
-            val shadowGravityIntValue = attributes.getInteger(R.styleable.CircularImageView_civ_shadow_gravity, ShadowGravity.BOTTOM.value)
-            shadowGravity = ShadowGravity.fromValue(shadowGravityIntValue)
+            shadowGravity = attributes.getInteger(R.styleable.CircularImageView_civ_shadow_gravity, shadowGravity.value).toShadowGravity()
             shadowRadius = attributes.getFloat(R.styleable.CircularImageView_civ_shadow_radius, DEFAULT_SHADOW_RADIUS)
             shadowColor = attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor)
         }
@@ -120,7 +120,7 @@ class CircularImageView @JvmOverloads constructor(context: Context, attrs: Attri
     //endregion
 
     //region Set Attr Method
-    override fun setColorFilter(colorFilter: ColorFilter) {
+    override fun setColorFilter(colorFilter: ColorFilter?) {
         civColorFilter = colorFilter
     }
 
@@ -164,7 +164,7 @@ class CircularImageView @JvmOverloads constructor(context: Context, attrs: Attri
         val usableWidth = width - (paddingLeft + paddingRight)
         val usableHeight = height - (paddingTop + paddingBottom)
 
-        heightCircle = Math.min(usableWidth, usableHeight)
+        heightCircle = min(usableWidth, usableHeight)
 
         circleCenter = (heightCircle - borderWidth * 2).toInt() / 2
         paintBorder.color = if (borderWidth == 0f) circleColor else borderColor
@@ -304,24 +304,25 @@ class CircularImageView @JvmOverloads constructor(context: Context, attrs: Attri
     }
     //endregion
 
+    private fun Int.toShadowGravity(): ShadowGravity =
+            when (this) {
+                1 -> ShadowGravity.CENTER
+                2 -> ShadowGravity.TOP
+                3 -> ShadowGravity.BOTTOM
+                4 -> ShadowGravity.START
+                5 -> ShadowGravity.END
+                else -> throw IllegalArgumentException("This value is not supported for ShadowGravity: $this")
+            }
+
+    /**
+     * ShadowGravity enum class to set the gravity of the CircleView shadow
+     */
     enum class ShadowGravity(val value: Int) {
         CENTER(1),
         TOP(2),
         BOTTOM(3),
         START(4),
-        END(5);
-
-        companion object {
-            fun fromValue(value: Int): ShadowGravity =
-                    when (value) {
-                        1 -> CENTER
-                        2 -> TOP
-                        3 -> BOTTOM
-                        4 -> START
-                        5 -> END
-                        else -> throw IllegalArgumentException("This value is not supported for ShadowGravity: $value")
-                    }
-        }
+        END(5)
     }
 
 }
