@@ -47,14 +47,16 @@ You must use the following properties in your XML to change your CircularImageVi
 
 ##### Properties:
 
-* `app:civ_circle_color`        (color)     -> default WHITE
-* `app:civ_border`              (boolean)   -> default true
-* `app:civ_border_color`        (color)     -> default WHITE
-* `app:civ_border_width`        (dimension) -> default 4dp
-* `app:civ_shadow`              (boolean)   -> default false
-* `app:civ_shadow_color`        (color)     -> default BLACK
-* `app:civ_shadow_radius`       (float)     -> default 8.0f
-* `app:civ_shadow_gravity`      (center, top, bottom, start or end) -> default bottom
+| Properties               | Type                              | Default |
+| ------------------------ | --------------------------------- | ------- |
+| `app:civ_circle_color`   | color                             | WHITE   |
+| `app:civ_border`         | boolean                           | true    |
+| `app:civ_border_width`   | dimension                         | 4dp     |
+| `app:civ_border_color`   | color                             | WHITE   |
+| `app:civ_shadow`         | boolean                           | false   |
+| `app:civ_shadow_color`   | color                             | BLACK   |
+| `app:civ_shadow_radius`  | float                             | 8.0f    |
+| `app:civ_shadow_gravity` | center, top, bottom, start or end | bottom  |
 
 :information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
 
@@ -63,17 +65,19 @@ KOTLIN
 
 ```kotlin
 val circularImageView = findViewById<CircularImageView>(R.id.circularImageView)
-// Set Circle color for transparent image
-circularImageView.circleColor = Color.WHITE
-// Set Border
-circularImageView.borderColor = Color.RED
-circularImageView.borderWidth = 10f
-// Add Shadow with default param
-circularImageView.shadowEnable = true
-// or with custom param
-circularImageView.shadowRadius = 15f
-circularImageView.shadowColor = Color.RED
-circularImageView.shadowGravity = CircularImageView.ShadowGravity.CENTER
+circularImageView.apply {
+    // Set Circle color for transparent image
+    circleColor = Color.WHITE
+    // Set Border
+    borderColor = Color.RED
+    borderWidth = 10f
+    // Add Shadow with default param
+    shadowEnable = true
+    // or with custom param
+    shadowRadius = 15f
+    shadowColor = Color.RED
+    .shadowGravity = CircularImageView.ShadowGravity.CENTER
+}
 ```
 
 JAVA
@@ -98,7 +102,7 @@ circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 LIMITATIONS
 -----
 
-* By default the ScaleType is CENTER_CROP. You can also used CENTER_INSIDE but the others one are not supported.
+* By default the ScaleType is **CENTER_CROP**. You can also used **CENTER_INSIDE** but the others one are not supported.
 * Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
 
 LINK
