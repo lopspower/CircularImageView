@@ -32,20 +32,17 @@ XML
 
 ```xml
 <com.mikhaellopez.circularimageview.CircularImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/image"
-        app:civ_border_color="#3f51b5"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_radius="10"
-        app:civ_shadow_color="#3f51b5"/>
+    android:layout_width="250dp"
+    android:layout_height="250dp"
+    android:src="@drawable/image"
+    app:civ_border_color="#3f51b5"
+    app:civ_border_width="4dp"
+    app:civ_shadow="true"
+    app:civ_shadow_radius="10"
+    app:civ_shadow_color="#3f51b5"/>
 ```
 
 You must use the following properties in your XML to change your CircularImageView.
-
-
-##### Properties:
 
 | Properties               | Type                              | Default |
 | ------------------------ | --------------------------------- | ------- |
@@ -76,7 +73,7 @@ circularImageView.apply {
     // or with custom param
     shadowRadius = 15f
     shadowColor = Color.RED
-    .shadowGravity = CircularImageView.ShadowGravity.CENTER
+    shadowGravity = CircularImageView.ShadowGravity.CENTER
 }
 ```
 
@@ -113,7 +110,6 @@ LINK
 I realized this project using this post:
 * [Create circular image view in android](http://stackoverflow.com/a/16208548/1832221)
 * [How to add a shadow and a border on circular imageView android?](http://stackoverflow.com/q/17655264/1832221)
-
 
 LICENCE
 -----
