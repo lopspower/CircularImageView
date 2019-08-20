@@ -99,8 +99,8 @@ circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 LIMITATIONS
 -----
 
-* By default the ScaleType is **CENTER_CROP**. You can also used **CENTER_INSIDE** but the others one are not supported.
-* Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
+-   By default the ScaleType is **CENTER_CROP**. You can also used **CENTER_INSIDE** but the others one are not supported.
+-   Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
 
 LINK
 -----
@@ -108,8 +108,8 @@ LINK
 **Stack OverFlow:**
 
 I realized this project using this post:
-* [Create circular image view in android](http://stackoverflow.com/a/16208548/1832221)
-* [How to add a shadow and a border on circular imageView android?](http://stackoverflow.com/q/17655264/1832221)
+-   [Create circular image view in android](http://stackoverflow.com/a/16208548/1832221)
+-   [How to add a shadow and a border on circular imageView android?](http://stackoverflow.com/q/17655264/1832221)
 
 LICENCE
 -----
