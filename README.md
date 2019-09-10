@@ -1,4 +1,4 @@
-<p align="center"><img src="http://i67.tinypic.com/2ij1d2r.jpg"></p>
+<p align="center"><img src="/preview/header.png"></p>
 
 CircularImageView
 =================
