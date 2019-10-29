@@ -34,7 +34,7 @@ def libVCSUrl = 'https://github.com/lopspower/CircularImageView.git'
 // Generate Source Jar
 task sourceJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
-    classifier "sources"
+    archiveClassifier.set("sources")
 }
 
 // Create the publication with the pom configuration

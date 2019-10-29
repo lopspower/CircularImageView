@@ -11,9 +11,9 @@ ext {
     androidVersionName          = "4.0.2"
 
     // ANDROID VERSION
-    androidCompileSdkVersion    = 28
+    androidCompileSdkVersion    = 29
     androidMinSdkVersion        = 14
-    androidTargetSdkVersion     = 28
+    androidTargetSdkVersion     = 29
 
     // KOTLIN
     kotlinStdlibGroupId         = "org.jetbrains.kotlin"
@@ -28,4 +28,19 @@ ext {
     // UI
     lobsterPickerVersion        = '1.0.1'
     lobsterPicker               = "com.larswerkman:lobsterpicker:$lobsterPickerVersion"
+
+    // DEPENDENCY CHECK STRATEGY
+    dependencyUpdatesStrategy = {
+        componentSelection { rules ->
+            rules.all { ComponentSelection selection ->
+                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
+                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
+                }
+                if (rejected) {
+                    selection.reject('Release candidate')
+                }
+            }
+        }
+    }
+
 }

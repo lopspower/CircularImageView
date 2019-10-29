@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        seekBarBorderWidth.onProgressChanged { circularImageView.borderWidth = it.toFloat() * resources.displayMetrics.density.toInt() }
+        seekBarBorderWidth.onProgressChanged {
+            circularImageView.borderWidth = it.toFloat() * resources.displayMetrics.density.toInt()
+        }
         seekBarShadowRadius.onProgressChanged { circularImageView.shadowRadius = it.toFloat() }
         shadeSlider.onColorChanged {
             circularImageView.borderColor = it
