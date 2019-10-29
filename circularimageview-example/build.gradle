@@ -22,7 +22,14 @@ android {
 dependencies {
     implementation project(':circularimageview')
     //implementation "com.mikhaellopez:circularimageview:$androidVersionName"
+
+    // KOTLIN
     implementation kotlinStdlib
+    // ANDROID
     implementation androidXAppCompat
+    // UI
     implementation lobsterPicker
+
+    // DEPENDENCY CHECK STRATEGY
+    dependencyUpdates.resolutionStrategy = dependencyUpdatesStrategy
 }
