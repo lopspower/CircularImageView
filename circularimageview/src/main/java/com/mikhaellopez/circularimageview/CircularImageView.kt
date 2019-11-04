@@ -8,8 +8,7 @@ import android.os.Build
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewOutlineProvider
-import android.widget.ImageView.ScaleType.CENTER_CROP
-import android.widget.ImageView.ScaleType.CENTER_INSIDE
+import android.widget.ImageView.ScaleType.*
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.min
 
@@ -142,11 +141,17 @@ class CircularImageView @JvmOverloads constructor(
     }
 
     override fun getScaleType(): ScaleType =
-        super.getScaleType().let { if (it == null || it != CENTER_INSIDE) CENTER_CROP else it }
+        super.getScaleType() ?: CENTER_CROP
 
     override fun setScaleType(scaleType: ScaleType) {
-        require(!(scaleType != CENTER_CROP && scaleType != CENTER_INSIDE)) {
-            "ScaleType $scaleType not supported. Just ScaleType.CENTER_CROP & ScaleType.CENTER_INSIDE are available for this library."
+        require(
+            listOf(
+                CENTER_CROP,
+                CENTER_INSIDE,
+                FIT_CENTER
+            ).contains(scaleType)
+        ) {
+            "ScaleType $scaleType not supported. Just ScaleType.CENTER_CROP, ScaleType.CENTER_INSIDE & ScaleType.FIT_CENTER are available for this library."
         }
         super.setScaleType(scaleType)
     }
@@ -255,41 +260,15 @@ class CircularImageView @JvmOverloads constructor(
             // Create Shader
             val shader = BitmapShader(it, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
 
-            // Center Image in Shader
-            val scale: Float
-            val dx: Float
-            val dy: Float
-
-            when (scaleType) {
-                CENTER_CROP -> if (it.width * height > width * it.height) {
-                    scale = height / it.height.toFloat()
-                    dx = (width - it.width * scale) * 0.5f
-                    dy = 0f
-                } else {
-                    scale = width / it.width.toFloat()
-                    dx = 0f
-                    dy = (height - it.height * scale) * 0.5f
+            // Apply matrix in Shader with scaleType
+            shader.setLocalMatrix(
+                when (scaleType) {
+                    CENTER_CROP -> centerCrop(it)
+                    CENTER_INSIDE -> centerInside(it)
+                    FIT_CENTER -> fitCenter(it)
+                    else -> Matrix()
                 }
-                CENTER_INSIDE -> if (it.width * height < width * it.height) {
-                    scale = height / it.height.toFloat()
-                    dx = (width - it.width * scale) * 0.5f
-                    dy = 0f
-                } else {
-                    scale = width / it.width.toFloat()
-                    dx = 0f
-                    dy = (height - it.height * scale) * 0.5f
-                }
-                else -> {
-                    scale = 0f
-                    dx = 0f
-                    dy = 0f
-                }
-            }
-
-            shader.setLocalMatrix(Matrix().apply {
-                setScale(scale, scale)
-                postTranslate(dx, dy)
-            })
+            )
 
             // Set Shader in Paint
             paint.shader = shader
@@ -298,6 +277,48 @@ class CircularImageView @JvmOverloads constructor(
             paint.colorFilter = civColorFilter
         }
     }
+
+    private fun centerCrop(bitmap: Bitmap): Matrix =
+        Matrix().apply {
+            val scale: Float
+            val dx: Float
+            val dy: Float
+            if (bitmap.width * height > width * bitmap.height) {
+                scale = height / bitmap.height.toFloat()
+                dx = (width - bitmap.width * scale) * .5f
+                dy = 0f
+            } else {
+                scale = width / bitmap.width.toFloat()
+                dx = 0f
+                dy = (height - bitmap.height * scale) * .5f
+            }
+            setScale(scale, scale)
+            postTranslate(dx, dy)
+        }
+
+    private fun centerInside(bitmap: Bitmap): Matrix =
+        Matrix().apply {
+            val scale = if (bitmap.width <= width && bitmap.height <= height) {
+                (width / bitmap.width).coerceAtMost(height / bitmap.height).toFloat()
+            } else {
+                1.0f
+            }
+
+            val dx = (width - bitmap.width * scale) * .5f
+            val dy = (height - bitmap.height * scale) * .5f
+
+            setScale(scale, scale)
+            postTranslate(dx, dy)
+        }
+
+    private fun fitCenter(bitmap: Bitmap): Matrix =
+        Matrix().apply {
+            setRectToRect(
+                RectF().apply { set(0f, 0f, bitmap.width.toFloat(), bitmap.height.toFloat()) },
+                RectF().apply { set(0f, 0f, width.toFloat(), height.toFloat()) },
+                Matrix.ScaleToFit.CENTER
+            )
+        }
 
     private fun drawableToBitmap(drawable: Drawable?): Bitmap? =
         when (drawable) {
