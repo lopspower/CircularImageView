@@ -2,7 +2,6 @@ package com.mikhaellopez.circularimageview
 
 import android.content.Context
 import android.graphics.*
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.AttributeSet
@@ -11,6 +10,7 @@ import android.view.ViewOutlineProvider
 import android.widget.ImageView.ScaleType.*
 import androidx.appcompat.widget.AppCompatImageView
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  * Copyright (C) 2019 Mikhael LOPEZ
@@ -299,13 +299,13 @@ class CircularImageView @JvmOverloads constructor(
     private fun centerInside(bitmap: Bitmap): Matrix =
         Matrix().apply {
             val scale = if (bitmap.width <= width && bitmap.height <= height) {
-                (width / bitmap.width).coerceAtMost(height / bitmap.height).toFloat()
-            } else {
                 1.0f
+            } else {
+                (width.toFloat() / bitmap.width.toFloat()).coerceAtMost(height.toFloat() / bitmap.height.toFloat())
             }
 
-            val dx = (width - bitmap.width * scale) * .5f
-            val dy = (height - bitmap.height * scale) * .5f
+            val dx: Float = ((width - bitmap.width * scale) * .5f).roundToInt().toFloat()
+            val dy: Float = ((height - bitmap.height * scale) * .5f).roundToInt().toFloat()
 
             setScale(scale, scale)
             postTranslate(dx, dy)
@@ -321,10 +321,8 @@ class CircularImageView @JvmOverloads constructor(
         }
 
     private fun drawableToBitmap(drawable: Drawable?): Bitmap? =
-        when (drawable) {
-            null -> null
-            is BitmapDrawable -> drawable.bitmap
-            else -> try {
+        drawable?.let {
+            try {
                 // Create Bitmap object out of the drawable
                 val bitmap = Bitmap.createBitmap(
                     drawable.intrinsicWidth,
