@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="CircularImageView">
+        <!-- BORDER -->
         <attr name="civ_border" format="boolean" />
         <attr name="civ_border_width" format="dimension" />
         <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_color_start" format="color" />
+        <attr name="civ_border_color_end" format="color" />
+        <attr name="civ_border_color_direction">
+            <flag name="left_to_right" value="1" />
+            <flag name="right_to_left" value="2" />
+            <flag name="top_to_bottom" value="3" />
+            <flag name="bottom_to_top" value="4" />
+        </attr>
+        <!-- CIRCLE COLOR -->
         <attr name="civ_circle_color" format="color" />
+        <attr name="civ_circle_color_start" format="color" />
+        <attr name="civ_circle_color_end" format="color" />
+        <attr name="civ_circle_color_direction">
+            <flag name="left_to_right" value="1" />
+            <flag name="right_to_left" value="2" />
+            <flag name="top_to_bottom" value="3" />
+            <flag name="bottom_to_top" value="4" />
+        </attr>
+        <!-- SHADOW -->
         <attr name="civ_shadow" format="boolean" />
         <attr name="civ_shadow_color" format="color" />
         <attr name="civ_shadow_radius" format="float" />

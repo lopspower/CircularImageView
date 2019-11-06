@@ -7,8 +7,8 @@ allprojects {
 
 ext {
     // APP VERSION
-    androidVersionCode          = 15
-    androidVersionName          = "4.0.2"
+    androidVersionCode          = 16
+    androidVersionName          = "4.1.0"
 
     // ANDROID VERSION
     androidCompileSdkVersion    = 29
