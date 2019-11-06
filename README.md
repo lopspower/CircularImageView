@@ -7,7 +7,7 @@ CircularImageView
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.0.2)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.0.2/link)
+[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.1.0)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.1.0/link)
 <br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/57b73cd8e4b242389acf4341b7ca7269)](https://www.codacy.com/app/lopspower/CircularImageView?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lopspower/CircularImageView&amp;utm_campaign=Badge_Grade)
@@ -24,7 +24,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:4.0.2'
+implementation 'com.mikhaellopez:circularimageview:4.1.0'
 ```
 
 XML
@@ -44,16 +44,22 @@ XML
 
 You must use the following properties in your XML to change your CircularImageView.
 
-| Properties               | Type                              | Default |
-| ------------------------ | --------------------------------- | ------- |
-| `app:civ_circle_color`   | color                             | WHITE   |
-| `app:civ_border`         | boolean                           | true    |
-| `app:civ_border_width`   | dimension                         | 4dp     |
-| `app:civ_border_color`   | color                             | WHITE   |
-| `app:civ_shadow`         | boolean                           | false   |
-| `app:civ_shadow_color`   | color                             | BLACK   |
-| `app:civ_shadow_radius`  | float                             | 8.0f    |
-| `app:civ_shadow_gravity` | center, top, bottom, start or end | bottom  |
+| Properties                       | Type                                                         | Default          |
+| -------------------------------- | ------------------------------------------------------------ | ---------------- |
+| `app:civ_circle_color`           | color                                                        | WHITE            |
+| `app:civ_circle_color_start`     | color                                                        | civ_circle_color |
+| `app:civ_circle_color_end`       | color                                                        | civ_circle_color |
+| `app:civ_color_direction`        | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right    |
+| `app:civ_border`                 | boolean                                                      | true             |
+| `app:civ_border_width`           | dimension                                                    | 4dp              |
+| `app:civ_border_color`           | color                                                        | WHITE            |
+| `app:civ_border_color_start`     | color                                                        | civ_border_color |
+| `app:civ_border_color_end`       | color                                                        | civ_border_color |
+| `app:civ_border_color_direction` | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right    |
+| `app:civ_shadow`                 | boolean                                                      | false            |
+| `app:civ_shadow_color`           | color                                                        | BLACK            |
+| `app:civ_shadow_radius`          | float                                                        | 8.0f             |
+| `app:civ_shadow_gravity`         | center, top, bottom, start or end                            | bottom           |
 
 :information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
 
@@ -63,11 +69,21 @@ KOTLIN
 ```kotlin
 val circularImageView = findViewById<CircularImageView>(R.id.circularImageView)
 circularImageView.apply {
-    // Set Circle color for transparent image
+    // Set Color
     circleColor = Color.WHITE
+    // or with gradient
+    circleColorStart = Color.BLACK
+    circleColorEnd = Color.RED
+    circleColorDirection = CircularImageView.GradientDirection.TOP_TO_BOTTOM
+
     // Set Border
-    borderColor = Color.RED
     borderWidth = 10f
+    borderColor = Color.BLACK
+    // or with gradient
+    borderColorStart = Color.BLACK
+    borderColorEnd = Color.RED
+    borderColorDirection = CircularImageView.GradientDirection.TOP_TO_BOTTOM
+    
     // Add Shadow with default param
     shadowEnable = true
     // or with custom param
@@ -82,17 +98,26 @@ JAVA
 
 ```java
 CircularImageView circularImageView = findViewById(R.id.circularImageView);
-// Set Circle color for transparent image
+// Set Color
 circularImageView.setCircleColor(Color.WHITE);
+// or with gradient
+circularImageView.setCircleColorStart(Color.BLACK);
+circularImageView.setCircleColorEnd(Color.RED);
+circularImageView.setCircleColorDirection(CircularImageView.GradientDirection.TOP_TO_BOTTOM);
+
 // Set Border
-circularImageView.setBorderColor(Color.RED);
-circularImageView.setBorderWidth(10);
+circularImageView.setBorderWidth(10f);
+circularImageView.setBorderColor(Color.BLACK);
+// or with gradient
+circularImageView.setBorderColorStart(Color.BLACK);
+circularImageView.setBorderColorEnd(Color.RED);
+circularImageView.setBorderColorDirection(CircularImageView.GradientDirection.TOP_TO_BOTTOM);
+
 // Add Shadow with default param
 circularImageView.setShadowEnable(true);
 // or with custom param
-circularImageView.setShadowRadius(15);
+circularImageView.setShadowRadius(15f);
 circularImageView.setShadowColor(Color.RED);
-circularImageView.setBackgroundColor(Color.RED);
 circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 ```
 
