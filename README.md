@@ -124,7 +124,7 @@ circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 LIMITATIONS
 -----
 
--   By default the ScaleType is **CENTER_CROP**. You can also used **CENTER_INSIDE** but the others one are not supported.
+-   By default the ScaleType is **FIT_CENTER**. You can also used **CENTER_INSIDE** AND **CENTER_CROP**.
 -   Enabling adjustViewBounds is not supported as this requires an unsupported ScaleType.
 
 SUPPORT ❤️
