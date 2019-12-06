@@ -7,7 +7,7 @@ CircularImageView
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.1.0)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.1.0/link)
+[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.1.1)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.1.1/link)
 <br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/57b73cd8e4b242389acf4341b7ca7269)](https://www.codacy.com/app/lopspower/CircularImageView?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lopspower/CircularImageView&amp;utm_campaign=Badge_Grade)
@@ -24,7 +24,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:4.1.0'
+implementation 'com.mikhaellopez:circularimageview:4.1.1'
 ```
 
 XML
