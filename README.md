@@ -7,7 +7,7 @@ CircularImageView
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.1.1)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.1.1/link)
+[![Download](https://api.bintray.com/packages/lopspower/maven/com.mikhaellopez:circularimageview/images/download.svg?version=4.2.0)](https://bintray.com/lopspower/maven/com.mikhaellopez:circularimageview/4.2.0/link)
 <br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/57b73cd8e4b242389acf4341b7ca7269)](https://www.codacy.com/app/lopspower/CircularImageView?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lopspower/CircularImageView&amp;utm_campaign=Badge_Grade)
@@ -24,7 +24,7 @@ USAGE
 To make a circular ImageView add CircularImageView in your layout XML and add CircularImageView library in your project or you can also grab it via Gradle:
 
 ```groovy
-implementation 'com.mikhaellopez:circularimageview:4.1.1'
+implementation 'com.mikhaellopez:circularimageview:4.2.0'
 ```
 
 XML
@@ -58,7 +58,7 @@ You must use the following properties in your XML to change your CircularImageVi
 | `app:civ_border_color_direction` | left_to_right, right_to_left, top_to_bottom or bottom_to_top | left_to_right    |
 | `app:civ_shadow`                 | boolean                                                      | false            |
 | `app:civ_shadow_color`           | color                                                        | BLACK            |
-| `app:civ_shadow_radius`          | float                                                        | 8.0f             |
+| `app:civ_shadow_radius`          | dimension                                                    | 8dp              |
 | `app:civ_shadow_gravity`         | center, top, bottom, start or end                            | bottom           |
 
 :information_source: You can also use `android:elevation` instead of `app:civ_shadow` to have default Material Design elevation.
@@ -87,7 +87,7 @@ circularImageView.apply {
     // Add Shadow with default param
     shadowEnable = true
     // or with custom param
-    shadowRadius = 15f
+    shadowRadius = 7f
     shadowColor = Color.RED
     shadowGravity = CircularImageView.ShadowGravity.CENTER
 }
@@ -116,7 +116,7 @@ circularImageView.setBorderColorDirection(CircularImageView.GradientDirection.TO
 // Add Shadow with default param
 circularImageView.setShadowEnable(true);
 // or with custom param
-circularImageView.setShadowRadius(15f);
+circularImageView.setShadowRadius(7f);
 circularImageView.setShadowColor(Color.RED);
 circularImageView.setShadowGravity(CircularImageView.ShadowGravity.CENTER);
 ```
