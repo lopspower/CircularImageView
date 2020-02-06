@@ -21,7 +21,7 @@
             app:civ_border_width="8dp"
             app:civ_shadow="true"
             app:civ_shadow_color="#3f51b5"
-            app:civ_shadow_radius="10" />
+            app:civ_shadow_radius="6dp" />
 
     </FrameLayout>
 
@@ -44,8 +44,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:max="40"
-            android:progress="8" />
+            android:max="15"
+            android:progress="6" />
 
         <com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
             android:id="@+id/shadeSlider"

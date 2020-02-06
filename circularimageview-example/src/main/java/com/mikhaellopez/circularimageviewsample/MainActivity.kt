@@ -13,10 +13,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        seekBarBorderWidth.onProgressChanged {
-            circularImageView.borderWidth = it.toFloat() * resources.displayMetrics.density.toInt()
-        }
-        seekBarShadowRadius.onProgressChanged { circularImageView.shadowRadius = it.toFloat() }
+        seekBarBorderWidth.onProgressChanged { circularImageView.borderWidth = it.toDp() }
+        seekBarShadowRadius.onProgressChanged { circularImageView.shadowRadius = it.toDp() }
         shadeSlider.onColorChanged {
             circularImageView.borderColor = it
             circularImageView.shadowColor = it
@@ -24,6 +22,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     //region Extensions
+    private fun Int.toDp(): Float =
+        this * resources.displayMetrics.density
+
     private fun SeekBar.onProgressChanged(onProgressChanged: (Int) -> Unit) {
         setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {

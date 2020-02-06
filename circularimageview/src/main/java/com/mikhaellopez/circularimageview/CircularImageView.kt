@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.util.AttributeSet
 import android.view.View
@@ -14,7 +15,7 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 /**
- * Copyright (C) 2019 Mikhael LOPEZ
+ * Copyright (C) 2020 Mikhael LOPEZ
  * Licensed under the Apache License Version 2.0
  */
 class CircularImageView @JvmOverloads constructor(
@@ -109,8 +110,9 @@ class CircularImageView @JvmOverloads constructor(
     var shadowEnable = false
         set(value) {
             field = value
-            if (field && shadowRadius == 0f)
-                shadowRadius = DEFAULT_SHADOW_RADIUS
+            if (field && shadowRadius == 0f) {
+                shadowRadius = DEFAULT_SHADOW_RADIUS * resources.displayMetrics.density
+            }
             update()
         }
     //endregion
@@ -154,11 +156,11 @@ class CircularImageView @JvmOverloads constructor(
 
         // Init Border
         if (attributes.getBoolean(R.styleable.CircularImageView_civ_border, true)) {
-            val defaultBorderSize =
-                DEFAULT_BORDER_WIDTH * getContext().resources.displayMetrics.density
+            val defaultBorderWidth =
+                DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
             borderWidth = attributes.getDimension(
                 R.styleable.CircularImageView_civ_border_width,
-                defaultBorderSize
+                defaultBorderWidth
             )
             borderColor =
                 attributes.getColor(R.styleable.CircularImageView_civ_border_color, Color.WHITE)
@@ -179,9 +181,10 @@ class CircularImageView @JvmOverloads constructor(
                 R.styleable.CircularImageView_civ_shadow_gravity,
                 shadowGravity.value
             ).toShadowGravity()
-            shadowRadius = attributes.getFloat(
+            val defaultShadowRadius = DEFAULT_SHADOW_RADIUS * resources.displayMetrics.density
+            shadowRadius = attributes.getDimension(
                 R.styleable.CircularImageView_civ_shadow_radius,
-                DEFAULT_SHADOW_RADIUS
+                defaultShadowRadius
             )
             shadowColor =
                 attributes.getColor(R.styleable.CircularImageView_civ_shadow_color, shadowColor)
@@ -420,25 +423,55 @@ class CircularImageView @JvmOverloads constructor(
 
     private fun drawableToBitmap(drawable: Drawable?): Bitmap? =
         drawable?.let {
-            when (drawable) {
-                is BitmapDrawable -> drawable.bitmap
-                    .let { Bitmap.createScaledBitmap(it, drawable.intrinsicWidth, drawable.intrinsicHeight, false) }
-                else -> try {
-                    // Create Bitmap object out of the drawable
-                    val bitmap = Bitmap.createBitmap(
-                        drawable.intrinsicWidth,
-                        drawable.intrinsicHeight,
-                        Bitmap.Config.ARGB_8888
-                    )
-                    val canvas = Canvas(bitmap)
-                    drawable.setBounds(0, 0, canvas.width, canvas.height)
-                    drawable.draw(canvas)
-                    bitmap
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    null
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && drawable is VectorDrawable) {
+                drawable.vectorDrawableToBitmap()
+            } else {
+                when (drawable) {
+                    is BitmapDrawable -> drawable.bitmapDrawableToBitmap()
+                    else -> drawable.toBitmap()
                 }
             }
+        }
+
+    private fun VectorDrawable.vectorDrawableToBitmap(): Bitmap {
+        // Generate max bitmap size from view when is vector drawable
+        // no when scale type is CENTER_INSIDE
+        val bitmap = Bitmap.createBitmap(
+            if (scaleType == CENTER_INSIDE) this.intrinsicWidth else width,
+            if (scaleType == CENTER_INSIDE) this.intrinsicHeight else height,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        this.setBounds(0, 0, canvas.width, canvas.height)
+        this.draw(canvas)
+        return bitmap
+    }
+
+    private fun BitmapDrawable.bitmapDrawableToBitmap(): Bitmap =
+        bitmap.let {
+            Bitmap.createScaledBitmap(
+                it,
+                this.intrinsicWidth,
+                this.intrinsicHeight,
+                false
+            )
+        }
+
+    private fun Drawable.toBitmap(): Bitmap? =
+        try {
+            // Create Bitmap object out of the drawable
+            val bitmap = Bitmap.createBitmap(
+                this.intrinsicWidth,
+                this.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            this.setBounds(0, 0, canvas.width, canvas.height)
+            this.draw(canvas)
+            bitmap
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     //endregion
 
