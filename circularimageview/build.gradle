@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.jfrog.bintray'
-apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -23,62 +21,4 @@ dependencies {
     implementation androidXAppCompat
 }
 
-//region Publish to jCenter
-def libGroupId = 'com.mikhaellopez'
-def libArtifactId = 'circularimageview'
-def libVersion = androidVersionName
-def libDesc = 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
-def libLicenses = ['Apache-2.0']
-def libVCSUrl = 'https://github.com/lopspower/CircularImageView.git'
-
-// Generate Source Jar
-task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    archiveClassifier.set("sources")
-}
-
-// Create the publication with the pom configuration
-publishing {
-    publications {
-        MyPublication(MavenPublication) {
-            groupId libGroupId
-            artifactId libArtifactId
-            version libVersion
-
-            pom.withXml {
-                def dependenciesNode = asNode().appendNode('dependencies')
-                // Add KotlinStdlib
-                def kotlinStdlibDepNode = dependenciesNode.appendNode('dependency')
-                kotlinStdlibDepNode.appendNode('groupId', kotlinStdlibGroupId)
-                kotlinStdlibDepNode.appendNode('artifactId', kotlinStdlibArtifactId)
-                kotlinStdlibDepNode.appendNode('version', kotlinStdlibVersion)
-            }
-
-            artifact(sourceJar)
-            artifact("$buildDir/outputs/aar/$libArtifactId-release.aar")
-        }
-    }
-}
-
-// Bintray config
-Properties properties = new Properties()
-properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
-    publications = ['MyPublication']
-    pkg {
-        repo = "maven"
-        name = "$libGroupId:$libArtifactId"
-        desc = libDesc
-        licenses = libLicenses
-        vcsUrl = libVCSUrl
-        version {
-            name = libVersion
-            vcsTag = libVersion
-            released = new Date()
-        }
-    }
-}
-//endregion
+apply from: rootProject.file('gradle/publish-mavencentral.gradle')

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.ben-manes.versions'
 
 android {
@@ -20,8 +19,8 @@ android {
 }
 
 dependencies {
-    implementation project(':circularimageview')
-    //implementation "com.mikhaellopez:circularimageview:$androidVersionName"
+    //implementation project(':circularimageview')
+    implementation "com.mikhaellopez:circularimageview:$androidVersionName"
 
     // KOTLIN
     implementation kotlinStdlib
@@ -31,5 +30,5 @@ dependencies {
     implementation lobsterPicker
 
     // DEPENDENCY CHECK STRATEGY
-    dependencyUpdates.resolutionStrategy = dependencyUpdatesStrategy
+    dependencyUpdates.resolutionStrategy dependencyUpdatesStrategy
 }

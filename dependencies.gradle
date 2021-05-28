@@ -1,14 +1,18 @@
 allprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
 }
 
 ext {
     // APP VERSION
-    androidVersionCode          = 18
-    androidVersionName          = "4.2.0"
+    androidVersionCode          = 19
+    androidVersionName          = "4.3.0"
+    libraryGroupId              = 'com.mikhaellopez'
+    libraryArtifactId           = 'circularimageview'
+    libraryVersion              = androidVersionName
 
     // ANDROID VERSION
     androidCompileSdkVersion    = 29
@@ -22,22 +26,24 @@ ext {
     kotlinStdlib                = "$kotlinStdlibGroupId:$kotlinStdlibArtifactId:$kotlinStdlibVersion"
 
     // ANDROID LIB
-    androidAppCompatXVersion    = '1.1.0'
-    androidXAppCompat           = "androidx.appcompat:appcompat:$androidAppCompatXVersion"
+    androidXAppCompat           = "androidx.appcompat:appcompat:1.3.0"
 
     // UI
-    lobsterPickerVersion        = '1.0.1'
-    lobsterPicker               = "com.larswerkman:lobsterpicker:$lobsterPickerVersion"
+    lobsterPicker               = "com.larswerkman:lobsterpicker:1.0.1"
 
     // DEPENDENCY CHECK STRATEGY
     dependencyUpdatesStrategy = {
-        componentSelection { rules ->
-            rules.all { ComponentSelection selection ->
-                boolean rejected = ['alpha', 'beta', 'rc', 'cr', 'm'].any { qualifier ->
-                    selection.candidate.version ==~ /(?i).*[.-]${qualifier}[.\d-]*/
-                }
-                if (rejected) {
-                    selection.reject('Release candidate')
+        def isNonStable = { String version ->
+            def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { keyword ->
+                version.toUpperCase().contains(keyword)
+            }
+            def regex = /^[0-9,.v-]+(-r)?$/
+            return !stableKeyword && !(version ==~ regex)
+        }
+        componentSelection {
+            all {
+                if (isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)) {
+                    reject('Release candidate')
                 }
             }
         }
