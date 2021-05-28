@@ -15,15 +15,12 @@ ext {
     libraryVersion              = androidVersionName
 
     // ANDROID VERSION
-    androidCompileSdkVersion    = 29
+    androidCompileSdkVersion    = 30
     androidMinSdkVersion        = 14
-    androidTargetSdkVersion     = 29
+    androidTargetSdkVersion     = 30
 
     // KOTLIN
-    kotlinStdlibGroupId         = "org.jetbrains.kotlin"
-    kotlinStdlibArtifactId      = "kotlin-stdlib"
-    kotlinStdlibVersion         = ext.kotlin_version
-    kotlinStdlib                = "$kotlinStdlibGroupId:$kotlinStdlibArtifactId:$kotlinStdlibVersion"
+    kotlinStdlib                = "org.jetbrains.kotlin:kotlin-stdlib:$ext.kotlin_version"
 
     // ANDROID LIB
     androidXAppCompat           = "androidx.appcompat:appcompat:1.3.0"

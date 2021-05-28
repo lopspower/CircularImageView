@@ -34,12 +34,6 @@ afterEvaluate {
             mavenDeployer {
                 beforeDeployment { deployment -> signing.signPom(deployment) }
 
-                Properties properties = new Properties()
-                properties.load(project.rootProject.file('local.properties').newDataInputStream())
-
-                def ossrhUsername = properties.getProperty("ossrhUsername")
-                def ossrhPassword = properties.getProperty("ossrhPassword")
-
                 repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                     authentication(userName: ossrhUsername, password: ossrhPassword)
                 }
@@ -85,7 +79,7 @@ afterEvaluate {
     }
 
     task androidSourcesJar(type: Jar) {
-        classifier = 'sources'
+        archiveClassifier.set('sources')
         from android.sourceSets.main.java.sourceFiles
     }
 
