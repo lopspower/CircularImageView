@@ -6,7 +6,7 @@ CircularImageView
 <img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="435" align="right" />
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
-[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.com.mikhaellopez%22%20AND%20a:%circularimageview%22)
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mikhaellopez/circularimageview)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 <br>
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
