@@ -38,7 +38,7 @@ XML
     app:civ_border_color="#3f51b5"
     app:civ_border_width="4dp"
     app:civ_shadow="true"
-    app:civ_shadow_radius="10"
+    app:civ_shadow_radius="10dp"
     app:civ_shadow_color="#3f51b5"/>
 ```
 
