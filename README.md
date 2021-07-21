@@ -6,11 +6,9 @@ CircularImageView
 <img src="/preview/preview.gif" alt="sample" title="sample" width="300" height="435" align="right" />
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
-[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mikhaellopez/circularimageview)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
-<br>
+[![Maven Central](https://img.shields.io/maven-central/v/com.mikhaellopez/circularimageview.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.mikhaellopez/circularimageview)
 [![Twitter](https://img.shields.io/badge/Twitter-@LopezMikhael-blue.svg?style=flat)](http://twitter.com/lopezmikhael)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/57b73cd8e4b242389acf4341b7ca7269)](https://www.codacy.com/app/lopspower/CircularImageView?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=lopspower/CircularImageView&amp;utm_campaign=Badge_Grade)
 
 This is an Android project allowing to realize a circular ImageView in the simplest way possible.
 
