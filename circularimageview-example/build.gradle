@@ -1,6 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.github.ben-manes.versions'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.github.ben-manes.versions'
+}
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -19,8 +21,8 @@ android {
 }
 
 dependencies {
-    //implementation project(':circularimageview')
-    implementation "com.mikhaellopez:circularimageview:$androidVersionName"
+    implementation project(':circularimageview')
+    //implementation "com.mikhaellopez:circularimageview:$androidVersionName"
 
     // KOTLIN
     implementation kotlinStdlib
