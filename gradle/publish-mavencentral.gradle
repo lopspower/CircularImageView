@@ -1,94 +1,57 @@
-apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-// Because the components are created only during the afterEvaluate phase, you must
-// configure your publications using the afterEvaluate() lifecycle method.
 afterEvaluate {
     publishing {
         publications {
-            // Creates a Maven publication called "release".
             release(MavenPublication) {
-                // Applies the component for the release build variant.
+                groupId = libraryGroupId
+                artifactId = libraryArtifactId
+                version = libraryVersion
+
                 from components.release
 
-                // You can then customize attributes of the publication as shown below.
-                groupId = libraryGroupId
-                artifactId = libraryArtifactId
-                version = libraryVersion
-            }
-            // Creates a Maven publication called “debug”.
-            debug(MavenPublication) {
-                // Applies the component for the debug build variant.
-                from components.debug
-
-                groupId = libraryGroupId
-                artifactId = libraryArtifactId
-                version = libraryVersion
-            }
-        }
-    }
-
-    uploadArchives {
-        repositories {
-            mavenDeployer {
-                beforeDeployment { deployment -> signing.signPom(deployment) }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
-
-                snapshotRepository(url: "https:/oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
-
-                pom.project {
-                    name 'CircularImageView'
-                    packaging 'aar'
-                    // optionally artifactId can be defined here
-                    description 'This is an Android project allowing to realize a circular ImageView in the simplest way possible.'
-                    url 'https://github.com/lopspower/CircularImageView'
-
-                    groupId = libraryGroupId
-                    artifactId = libraryArtifactId
-                    version = libraryVersion
+                pom {
+                    name = libraryName
+                    packaging = 'aar'
+                    description = libraryDesc
+                    url = "https://github.com/lopspower/$libraryName"
 
                     scm {
-                        connection 'scm:git:https://github.com/lopspower/CircularImageView'
-                        developerConnection 'scm:git:https://github.com/lopspower/CircularImageView'
-                        url 'https://github.com/lopspower/CircularImageView'
+                        connection = "scm:git:https://github.com/lopspower/$libraryName"
+                        developerConnection = "scm:git:https://github.com/lopspower/$libraryName"
+                        url = "https://github.com/lopspower/$libraryName"
                     }
-
                     licenses {
                         license {
-                            name 'The Apache License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                         }
                     }
-
                     developers {
                         developer {
-                            id 'mikhael.lopez'
-                            name 'Mikhael LOPEZ'
-                            email 'lopez.mikhael@gmail.com'
+                            id = 'lopspower'
+                            name = 'Mikhael LOPEZ'
+                            email = 'lopez.mikhael@gmail.com'
+                            url = 'https://github.com/lopspower'
                         }
                     }
                 }
             }
         }
+        repositories {
+            maven {
+                name = "ossrh"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
+                }
+            }
+        }
     }
+}
 
-    task androidSourcesJar(type: Jar) {
-        archiveClassifier.set('sources')
-        from android.sourceSets.main.java.sourceFiles
-    }
-
-    signing {
-        required { gradle.taskGraph.hasTask("uploadArchives") }
-        sign configurations.archives
-    }
-
-    artifacts {
-        archives androidSourcesJar
-    }
+signing {
+    sign publishing.publications
 }

@@ -6,23 +6,27 @@ allprojects {
 }
 
 ext {
-    // APP VERSION
-    androidVersionCode          = 19
-    androidVersionName          = "4.3.0"
+    // LIBRARY VERSION
+    androidVersionCode          = 20
+    androidVersionName          = "4.3.1"
+
+    // LIBRARY INFORMATION
     libraryGroupId              = 'com.mikhaellopez'
     libraryArtifactId           = 'circularimageview'
     libraryVersion              = androidVersionName
+    libraryName                 = "CircularImageView"
+    libraryDesc                 = "This is an Android project allowing to realize a circular ImageView in the simplest way possible."
 
     // ANDROID VERSION
-    androidCompileSdkVersion    = 30
+    androidCompileSdkVersion    = 33
     androidMinSdkVersion        = 14
-    androidTargetSdkVersion     = 30
+    androidTargetSdkVersion     = 33
 
     // KOTLIN
     kotlinStdlib                = "org.jetbrains.kotlin:kotlin-stdlib:$ext.kotlin_version"
 
     // ANDROID LIB
-    androidXAppCompat           = "androidx.appcompat:appcompat:1.3.0"
+    androidXAppCompat           = "androidx.appcompat:appcompat:1.5.0"
 
     // UI
     lobsterPicker               = "com.larswerkman:lobsterpicker:1.0.1"
