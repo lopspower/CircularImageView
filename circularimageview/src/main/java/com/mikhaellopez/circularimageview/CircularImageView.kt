@@ -123,7 +123,6 @@ class CircularImageView @JvmOverloads constructor(
             if (field != value) {
                 field = value
                 if (field != null) {
-                    civDrawable = null // To force re-update shader
                     invalidate()
                 }
             }
@@ -131,7 +130,6 @@ class CircularImageView @JvmOverloads constructor(
 
     // Object used to draw
     private var civImage: Bitmap? = null
-    private var civDrawable: Drawable? = null
 
     init {
         init(context, attrs, defStyleAttr)
@@ -323,10 +321,7 @@ class CircularImageView @JvmOverloads constructor(
     }
 
     private fun loadBitmap() {
-        if (civDrawable == drawable) return
-
-        civDrawable = drawable
-        civImage = drawableToBitmap(civDrawable)
+        civImage = drawableToBitmap(drawable)
         updateShader()
     }
 
